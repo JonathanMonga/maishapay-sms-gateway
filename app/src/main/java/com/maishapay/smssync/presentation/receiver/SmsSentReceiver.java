@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -44,7 +45,12 @@ public class SmsSentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        messageModel = intent.getParcelableExtra(ProcessSms.SENT_SMS_BUNDLE);
+
+        intent.setExtrasClassLoader(MessageModel.class.getClassLoader());
+
+        Bundle oldBundle = intent.getBundleExtra("bundle");
+        messageModel = oldBundle.getParcelable(ProcessSms.SENT_SMS_BUNDLE);
+
         final int result = getResultCode();
         boolean sentSuccess = false;
         log("smsSentReceiver onReceive result: " + result);
@@ -97,15 +103,12 @@ public class SmsSentReceiver extends BroadcastReceiver {
                 updateService.putExtra(ServiceConstants.UPDATE_MESSAGE, messageModel);
                 context.startService(updateService);
             } else {
-
                 PrefsFactory prefsFactory = App.getAppComponent().prefsFactory();
                 if (prefsFactory.enableRetry().get()) {
                     if (messageModel.getRetries() >= prefsFactory.retries().get()) {
-                        Logger.log(SmsSentReceiver.class.getSimpleName(),
-                                "Delete failed messages " + messageModel);
+                        Logger.log(SmsSentReceiver.class.getSimpleName(), "Delete failed messages " + messageModel);
                         Intent deleteService = new Intent(context, DeleteMessageService.class);
-                        deleteService.putExtra(ServiceConstants.DELETE_MESSAGE,
-                                messageModel.getMessageUuid());
+                        deleteService.putExtra(ServiceConstants.DELETE_MESSAGE, messageModel.getMessageUuid());
                         context.startService(deleteService);
                     } else {
                         int retries = messageModel.getRetries() + 1;

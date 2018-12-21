@@ -51,11 +51,9 @@ import static com.maishapay.smssync.presentation.util.Utility.NOTIFICATION_PROGR
  */
 public class SyncPendingMessagesService extends BaseWakefulIntentService {
 
-    private static String CLASS_TAG = SyncPendingMessagesService.class
-            .getSimpleName();
+    private static String CLASS_TAG = SyncPendingMessagesService.class.getSimpleName();
 
     private static SyncPendingMessagesService mService;
-
 
     @Inject
     FileManager mFileManager;
@@ -65,7 +63,6 @@ public class SyncPendingMessagesService extends BaseWakefulIntentService {
 
     @Inject
     MaishapayMessage mMaishapayMessage;
-
 
     @Inject
     MessageRepository mMessageRepository;
@@ -154,24 +151,16 @@ public class SyncPendingMessagesService extends BaseWakefulIntentService {
             // load all messages
             listMessages = mMessageRepository.syncFetchPending();
         }
+
         if (listMessages.size() > 0) {
-            Logger.log(CLASS_TAG, String.format(Locale.ENGLISH, "Starting to sync (%d messages)",
-                    listMessages.size()));
-            Utility.BuildNotification buildNotification = Utility
-                    .getSyncNotificationStatus(this, getString(R.string.sync_in_progress));
+            Logger.log(CLASS_TAG, String.format(Locale.ENGLISH, "Starting to sync (%d messages)", listMessages.size()));
+            Utility.BuildNotification buildNotification = Utility.getSyncNotificationStatus(this, getString(R.string.sync_in_progress));
             NotificationCompat.Builder builder = buildNotification.getBuilder();
-            List<String> failedMessages = new ArrayList<>();
+
             int failedCounter = 0;
             int successCounter = 0;
             for (int i = 0; i < listMessages.size(); i++) {
                 MessageEntity m = listMessages.get(i);
-
-                /*// route the message to the appropriate enabled sync URL
-                if (!mPostMessage.routePendingMessage(mMessageDataMapper.map(m))) {
-                    failedCounter++;
-                } else {
-                    successCounter++;
-                }*/
 
                 // route the message to the appropriate enabled sync URL
                 if (!mMaishapayMessage.routePendingMessage(mMessageDataMapper.map(m))) {
@@ -182,8 +171,8 @@ public class SyncPendingMessagesService extends BaseWakefulIntentService {
 
                 builder.setProgress(NOTIFICATION_PROGRESS_BAR_MAX, i, false);
             }
-            String status = getString(R.string.status_sync_details, successCounter, failedCounter,
-                    listMessages.size());
+
+            String status = getString(R.string.status_sync_details, successCounter, failedCounter, listMessages.size());
             Utility.showSyncNotificationStatus(this, status, buildNotification);
             statusIntent.putExtra(SYNC_STATUS, INACTIVE_SYNC);
             sendBroadcast(statusIntent);

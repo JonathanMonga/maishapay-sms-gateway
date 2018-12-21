@@ -52,7 +52,6 @@ public class UpdateMessageService extends BaseWakefulIntentService implements Up
         mUpdateMessagePresenter.setUpdateMessageView(this);
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();

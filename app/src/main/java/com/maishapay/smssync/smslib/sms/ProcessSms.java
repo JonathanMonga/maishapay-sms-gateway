@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
@@ -86,13 +87,21 @@ public class ProcessSms {
 
             Intent sentMessageIntent = new Intent(SENT);
             sentMessageIntent.setExtrasClassLoader(MessageModel.class.getClassLoader());
-            sentMessageIntent.putExtra(SENT_SMS_BUNDLE, message);
+
+            /* Send optional extras */
+            Bundle bundleSentMessage = new Bundle();
+            bundleSentMessage.putParcelable(SENT_SMS_BUNDLE, message);
+            sentMessageIntent.putExtra("bundle", bundleSentMessage);
 
             PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, (int) System.currentTimeMillis(), sentMessageIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Intent delivered = new Intent(DELIVERED);
-            sentMessageIntent.setExtrasClassLoader(MessageModel.class.getClassLoader());
-            sentMessageIntent.putExtra(DELIVERED_SMS_BUNDLE, message);
+            delivered.setExtrasClassLoader(MessageModel.class.getClassLoader());
+
+            /* Send optional extras */
+            Bundle bundleDelivered = new Bundle();
+            bundleDelivered.putParcelable(DELIVERED_SMS_BUNDLE, message);
+            delivered.putExtra("bundle", bundleDelivered);
 
             PendingIntent deliveryIntent = PendingIntent.getBroadcast(mContext, (int) System.currentTimeMillis(), delivered, PendingIntent.FLAG_UPDATE_CURRENT);
 

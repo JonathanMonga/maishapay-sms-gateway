@@ -138,6 +138,7 @@ public class MaishapayMessage extends ProcessMessage {
                 postToSentBox(messg);
             }
         }
+
         return true;
     }
 
@@ -265,23 +266,15 @@ public class MaishapayMessage extends ProcessMessage {
     private boolean postToWebService(Message message) {
         boolean posted = false;
 
-        Log.e(TAG, message.getMessageBody());
-
         if (message.getMessageType().equals(Message.Type.PENDING)) {
-            Log.e(TAG, "Process message with keyword filtering enabled " + message);
-
             if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_CODE)) {
                 String[] splits = message.getMessageBody().split(" ");
                 if (splits.length == 4) {
-                    Log.e(TAG, splits[2].toLowerCase());
-
                     posted = maishapayHttpClient.postSmsToSoldeWebService(splits[2].toLowerCase());
                     // Process server side response so they are sent as SMS
                     smsSoldeServerResponse(message, maishapayHttpClient.getSoldeServerSuccessResp());
                 } else {
-
-                    Log.e(TAG, "Erreur");
-                    //sendErrorSms(message);
+                    sendErrorSms(message);
                 }
             } else if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_EPARGNE_CODE)) {
                 String[] splits = message.getMessageBody().split(" ");
