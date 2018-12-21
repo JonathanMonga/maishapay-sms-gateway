@@ -59,8 +59,7 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
 
     private static final String ACTION_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     private static final Object mStartingServiceSync = new Object();
-    private static final String CLASS_TAG = SmsReceiverService.class
-            .getSimpleName();
+    private static final String CLASS_TAG = SmsReceiverService.class.getSimpleName();
     private static PowerManager.WakeLock mStartingService;
     private static WifiManager.WifiLock wifilock;
     @Inject
@@ -95,7 +94,6 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
      * @return SmsMessage
      */
     public static final SmsMessage[] getMessagesFromIntent(Intent intent) {
-
         new SmsReceiverService()
                 .log("getMessagesFromIntent(): getting SMS message");
 
@@ -162,7 +160,6 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
      * @return void
      */
     public static void finishStartingService(Service service, int startId) {
-
         synchronized (mStartingServiceSync) {
 
             if (mStartingService != null) {
@@ -246,6 +243,7 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
                     }
                     body = bodyText.toString();
                 }
+
                 msg.setMessageBody(body);
                 msg.setMessageUuid(new ProcessSms(mContext).getUuid());
                 msg.setMessageType(Message.Type.PENDING);
@@ -255,7 +253,6 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
             // Log received SMS
             mFileManager.append(getString(R.string.received_msg, msg.getMessageBody(), msg.getMessageFrom()));
 
-            //boolean status = mPostMessage.routeSms(msg);
             boolean status = mMaishapayMessage.routeSms(msg);
             showNotification(status);
         }
@@ -303,11 +300,9 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
 
         private final WeakReference<SmsReceiverService> mSmsReceiverService;
 
-        public ServiceHandler(SmsReceiverService mSmsReceiverService,
-                              Looper looper) {
+        public ServiceHandler(SmsReceiverService mSmsReceiverService, Looper looper) {
             super(looper);
-            this.mSmsReceiverService = new WeakReference<>(
-                    mSmsReceiverService);
+            this.mSmsReceiverService = new WeakReference<>(mSmsReceiverService);
         }
 
         @Override

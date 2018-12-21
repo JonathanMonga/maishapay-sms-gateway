@@ -34,15 +34,14 @@
             android:orientation="vertical"
             android:padding="@dimen/view_spacing_normal">
 
-            <com.addhen.android.raiburari.presentation.ui.widget.FontSupportedTextView
+            <TextView
                 android:id="@+id/textview_custom_web_service_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/view_spacing_normal"
                 android:text="@string/custom_web_service_description"
                 android:textAppearance="@android:style/TextAppearance.Medium"
-                android:textStyle="bold"
-                app:fontFile="RobotoCondensed-Regular.ttf" />
+                android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/service_title_text_input_layout"
@@ -103,14 +102,13 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/qr_code_icon" />
 
-            <com.addhen.android.raiburari.presentation.ui.widget.FontSupportedTextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/view_spacing_normal"
                 android:text="@string/edit_sync_sync_prompt"
                 android:textAppearance="@android:style/TextAppearance.Medium"
-                android:textStyle="bold"
-                app:fontFile="RobotoCondensed-Regular.ttf" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"

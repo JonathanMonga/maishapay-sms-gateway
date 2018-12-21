@@ -59,8 +59,7 @@ public class Utility {
 
     public static final int NOTIFICATION_PROGRESS_BAR_MAX = 100;
     public static final int SET_DEFAULT_SMS_REQUEST = 1;
-    private static final String URL_PATTERN
-            = "\\b(https?|ftp|file)://[-a-zA-Z0-9+\\$&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    private static final String URL_PATTERN = "\\b(https?|ftp|file)://[-a-zA-Z0-9+\\$&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     private static final int NOTIFY_RUNNING = 100;
     private static final String TIME_FORMAT_12_HOUR = "h:mm a";
     private static final String TIME_FORMAT_24_HOUR = "H:mm";
@@ -329,12 +328,9 @@ public class Utility {
     }
 
     public static void makeDefaultSmsApp(Activity activity) {
-
         if (!isDefaultSmsApp(activity)) {
-            final Intent changeDefaultIntent = new Intent(
-                    Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-            changeDefaultIntent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
-                    activity.getPackageName());
+            final Intent changeDefaultIntent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+            changeDefaultIntent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, activity.getPackageName());
             activity.startActivityForResult(changeDefaultIntent, SET_DEFAULT_SMS_REQUEST);
         }
     }
@@ -343,6 +339,7 @@ public class Utility {
         if (Utils.isKitKatOrHigher()) {
             return context.getPackageName().equals(Telephony.Sms.getDefaultSmsPackage(context));
         }
+
         return true;
     }
 

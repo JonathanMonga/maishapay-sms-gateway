@@ -214,6 +214,7 @@ public abstract class ProcessMessage {
         if (mPrefsFactory.smsReportDelivery().get()) {
             mProcessSms.sendSms(map(message), true);
         }
+
         mProcessSms.sendSms(map(message), false);
         return true;
     }

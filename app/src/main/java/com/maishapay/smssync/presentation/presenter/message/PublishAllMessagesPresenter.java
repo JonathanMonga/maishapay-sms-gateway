@@ -81,6 +81,7 @@ public class PublishAllMessagesPresenter implements Presenter {
                     mPublishMessagesView.getAppContext().getString(R.string.smssync_not_enabled));
             return;
         }
+
         mPublishAllMessagesUsecase.execute(new PublishMessageSubscriber());
     }
 

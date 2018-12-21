@@ -92,10 +92,8 @@ public class IntegrationFragment extends BaseFragment implements IntegrationView
         getIntegrationComponent(IntegrationComponent.class).inject(this);
         mIntegrationPresenter.setIntegrationView(this);
         mIntegrationPresenter.setPackageManager(getActivity().getPackageManager());
-        mIntegrationPresenter.setSmsReceiverComponent(new ComponentName(
-                getActivity(), SmsReceiver.class));
-        mStartServiceCheckBox
-                .setChecked(mIntegrationPresenter.getPrefsFactory().serviceEnabled().get());
+        mIntegrationPresenter.setSmsReceiverComponent(new ComponentName(getActivity(), SmsReceiver.class));
+        mStartServiceCheckBox.setChecked(mIntegrationPresenter.getPrefsFactory().serviceEnabled().get());
     }
 
     @OnClick(R.id.integration_web_service)

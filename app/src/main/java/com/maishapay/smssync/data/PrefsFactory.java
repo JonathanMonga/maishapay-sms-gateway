@@ -68,11 +68,11 @@ public class PrefsFactory {
     }
 
     public BooleanPreference serviceEnabled() {
-        return new BooleanPreference(mSharedPreferences, "EnableSmsSync", false);
+        return new BooleanPreference(mSharedPreferences, "EnableSmsSync", true);
     }
 
     public BooleanPreference autoDelete() {
-        return new BooleanPreference(mSharedPreferences, "EnableAutoDelete", false);
+        return new BooleanPreference(mSharedPreferences, "EnableAutoDelete", true);
     }
 
     public BooleanPreference enableReply() {
@@ -80,7 +80,7 @@ public class PrefsFactory {
     }
 
     public BooleanPreference enableReplyFrmServer() {
-        return new BooleanPreference(mSharedPreferences, "EnableReplyFrmServer", false);
+        return new BooleanPreference(mSharedPreferences, "EnableReplyFrmServer", true);
     }
 
     public BooleanPreference enableAutoSync() {

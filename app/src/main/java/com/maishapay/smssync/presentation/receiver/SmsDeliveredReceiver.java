@@ -39,7 +39,7 @@ public class SmsDeliveredReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         int result = getResultCode();
-        MessageModel message = (MessageModel) intent.getParcelableExtra(ProcessSms.DELIVERED_SMS_BUNDLE);
+        MessageModel message = intent.getParcelableExtra(ProcessSms.DELIVERED_SMS_BUNDLE);
         FileManager fileManager = App.getAppComponent().fileManager();
         String resultMessage = "";
         switch (result) {

@@ -101,8 +101,7 @@ public class MessagesSettingsFragment extends BasePreferenceFragmentCompat
 
             String status = getCheckedStatus(mPrefs.enableReplyFrmServer().get());
 
-            mAddLogPresenter.addLog(getString(R.string.settings_changed,
-                    mEnableReplyFrmServer.getTitle().toString(), status, check));
+            mAddLogPresenter.addLog(getString(R.string.settings_changed, mEnableReplyFrmServer.getTitle().toString(), status, check));
         }
         mPrefs.enableReplyFrmServer().set(mEnableReplyFrmServer.isChecked());
     }

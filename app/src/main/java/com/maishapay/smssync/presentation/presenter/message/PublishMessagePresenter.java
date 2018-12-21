@@ -18,6 +18,7 @@
 package com.maishapay.smssync.presentation.presenter.message;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.addhen.android.raiburari.domain.exception.DefaultErrorHandler;
 import com.addhen.android.raiburari.domain.exception.ErrorHandler;
@@ -78,10 +79,12 @@ public class PublishMessagePresenter implements Presenter {
 
     public void publishMessage(MessageModel messageModels) {
         if (!mPrefsFactory.serviceEnabled().get()) {
-            mPublishMessageView.showEnableServiceMessage(
-                    mPublishMessageView.getAppContext().getString(R.string.smssync_not_enabled));
+            mPublishMessageView.showEnableServiceMessage(mPublishMessageView.getAppContext().getString(R.string.smssync_not_enabled));
             return;
         }
+
+        Log.e(PublishMessagePresenter.class.getSimpleName(), messageModels.getMessageBody());
+
         mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModels));
         mPublishMessageUsecase.execute(new PublishMessageSubscriber());
     }

@@ -18,7 +18,9 @@
 package com.maishapay.smssync.presentation.view.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -56,6 +58,11 @@ import com.maishapay.smssync.presentation.di.component.FilterComponent;
 import com.maishapay.smssync.presentation.di.component.IntegrationComponent;
 import com.maishapay.smssync.presentation.di.component.LogComponent;
 import com.maishapay.smssync.presentation.di.component.MessageComponent;
+import com.maishapay.smssync.presentation.receiver.AutoSyncScheduledReceiver;
+import com.maishapay.smssync.presentation.receiver.SmsReceiver;
+import com.maishapay.smssync.presentation.service.Scheduler;
+import com.maishapay.smssync.presentation.service.ServiceConstants;
+import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
 import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.presentation.view.ui.fragment.FilterFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.IntegrationFragment;
@@ -282,7 +289,6 @@ public class MainActivity extends BaseActivity implements HasComponent<AppActivi
         }
     }
 
-
     private void injector() {
         mAppComponent = DaggerAppActivityComponent.builder()
                 .applicationComponent(getApplicationComponent())
@@ -292,6 +298,8 @@ public class MainActivity extends BaseActivity implements HasComponent<AppActivi
         PrefsFactory prefsFactory = getAppComponent().prefsFactory();
         if (prefsFactory.isFirstTimeLaunched().get()) {
             prefsFactory.isFirstTimeLaunched().set(false);
+            Utility.makeDefaultSmsApp(this);
+            startSyncServices(prefsFactory);
             mAppComponent.launcher().launchGettingStarted();
         }
 
@@ -460,5 +468,72 @@ public class MainActivity extends BaseActivity implements HasComponent<AppActivi
 
     public IntegrationComponent getIntegrationComponent() {
         return mIntegrationComponent;
+    }
+
+    public void startSyncServices(PrefsFactory prefsFactory) {
+        getPackageManager().setComponentEnabledSetting(new ComponentName(this, SmsReceiver.class), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        // Then enable the services
+        // Run auto sync service
+        runAutoSyncService(prefsFactory);
+
+        // Show notification
+        Utility.showNotification(this);
+        return;
+    }
+
+    /**
+     * Runs the {@link com.maishapay.smssync.presentation.service.AutoSyncScheduledService}
+     *
+     * @return ScheduleServices
+     */
+    public void runAutoSyncService(PrefsFactory prefsFactory) {
+
+        // Push any pending messages now that we have connectivity
+        if (prefsFactory.enableAutoSync().get() && prefsFactory.serviceEnabled().get()) {
+
+            // Start the scheduler for auto sync service
+            final long interval = TimeFrequencyUtil.calculateInterval(prefsFactory.autoTime().get());
+            final Intent intent = new Intent(this, AutoSyncScheduledReceiver.class);
+            // Run the service
+            runServices(prefsFactory, intent, ServiceConstants.AUTO_SYNC_SCHEDULED_SERVICE_REQUEST_CODE, interval);
+        }
+    }
+
+    /**
+     * Runs any enabled services. Making sure the device has internet connection before it attempts
+     * to start any of the enabled services.
+     *
+     * @param intent      The intent to be started.
+     * @param requestCode The private request code
+     * @param interval    The interval in which to run the scheduled service.
+     * @return void
+     */
+    public void runServices(PrefsFactory prefsFactory, Intent intent, int requestCode, long interval) {
+        // load current setting
+        // is smssync enabled
+        if (prefsFactory.serviceEnabled().get()) {
+
+            // show notification
+            Utility.showNotification(this);
+            // start pushing pending messages
+
+            // do we have data network?
+            if (isConnected()) {
+                SchedulerInstance.INSTANCE.getScheduler(this, intent, requestCode).updateScheduler(interval);
+            }
+        }
+    }
+
+    public enum SchedulerInstance {
+        INSTANCE;
+
+        private Scheduler getScheduler(Context context, Intent intent, int requestCode) {
+            return new Scheduler(context, intent, requestCode, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+    }
+
+    public boolean isConnected() {
+        return Utility.isConnected(this);
     }
 }

@@ -3,8 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.maishapay.smssync"
-    tools:ignore="AppLinkUrlError"
-    tools:targetApi="jelly_bean">
+    tools:ignore="AppLinkUrlError">
 
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />

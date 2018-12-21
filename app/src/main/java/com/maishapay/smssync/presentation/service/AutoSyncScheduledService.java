@@ -55,12 +55,7 @@ public class AutoSyncScheduledService extends BaseWakefulIntentService {
     protected void executeTask(Intent intent) {
         log(CLASS_TAG, "doWakefulWork() executing " + CLASS_TAG);
 
-        //mTweetMessage.syncPendingMessages();
-        //mProcessMessage.syncPendingMessages();
-
         mMaishapayMessage.syncPendingMessages();
-
-        //statusIntent.putExtra("status", mProcessMessage.getErrorMessage());
 
         statusIntent.putExtra("status", mMaishapayMessage.getErrorMessage());
         sendBroadcast(statusIntent);

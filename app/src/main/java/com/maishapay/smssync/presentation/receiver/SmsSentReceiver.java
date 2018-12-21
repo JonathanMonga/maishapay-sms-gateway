@@ -44,7 +44,7 @@ public class SmsSentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        messageModel = (MessageModel) intent.getParcelableExtra(ProcessSms.SENT_SMS_BUNDLE);
+        messageModel = intent.getParcelableExtra(ProcessSms.SENT_SMS_BUNDLE);
         final int result = getResultCode();
         boolean sentSuccess = false;
         log("smsSentReceiver onReceive result: " + result);
@@ -55,8 +55,7 @@ public class SmsSentReceiver extends BroadcastReceiver {
                  * HTC devices issue
                  * http://stackoverflow.com/questions/7526179/sms-manager-keeps-retrying-to-send-sms-on-htc-desire/7685238#7685238
                  */
-                logActivities(context.getResources().getString(
-                        R.string.sms_not_delivered_htc_device_retry));
+                logActivities(context.getResources().getString(R.string.sms_not_delivered_htc_device_retry));
                 // This intentionally returns, while the rest below does break and more after.
                 return;
             case Activity.RESULT_OK:
@@ -112,8 +111,7 @@ public class SmsSentReceiver extends BroadcastReceiver {
                         int retries = messageModel.getRetries() + 1;
                         messageModel.setRetries(retries);
                         messageModel.setStatus(MessageModel.Status.FAILED);
-                        Logger.log(SmsSentReceiver.class.getSimpleName(),
-                                "update message retries " + messageModel);
+                        Logger.log(SmsSentReceiver.class.getSimpleName(), "update message retries " + messageModel);
                         // Update this in a service to guarantee it will run
                         Intent updateService = new Intent(context, UpdateMessageService.class);
                         updateService.putExtra(ServiceConstants.UPDATE_MESSAGE, messageModel);

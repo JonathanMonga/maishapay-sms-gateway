@@ -19,6 +19,7 @@ package com.maishapay.smssync.data.message;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.maishapay.smssync.R;
@@ -217,6 +218,8 @@ public class MaishapayMessage extends ProcessMessage {
             else
                 messageResponse = String.format("Merci d'avoir choisi Maishapay. Votre solde actuel est %s USD", response.getFrancCongolais());
 
+            Log.e(TAG, messageResponse);
+
             localMessage.setMessageBody(messageResponse);
             localMessage.setMessageFrom(message.getMessageFrom());
             sendTaskSms(localMessage);
@@ -262,17 +265,23 @@ public class MaishapayMessage extends ProcessMessage {
     private boolean postToWebService(Message message) {
         boolean posted = false;
 
+        Log.e(TAG, message.getMessageBody());
+
         if (message.getMessageType().equals(Message.Type.PENDING)) {
-            Logger.log(TAG, "Process message with keyword filtering enabled " + message);
+            Log.e(TAG, "Process message with keyword filtering enabled " + message);
 
             if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_CODE)) {
                 String[] splits = message.getMessageBody().split(" ");
                 if (splits.length == 4) {
+                    Log.e(TAG, splits[2].toLowerCase());
+
                     posted = maishapayHttpClient.postSmsToSoldeWebService(splits[2].toLowerCase());
                     // Process server side response so they are sent as SMS
                     smsSoldeServerResponse(message, maishapayHttpClient.getSoldeServerSuccessResp());
                 } else {
-                    sendErrorSms(message);
+
+                    Log.e(TAG, "Erreur");
+                    //sendErrorSms(message);
                 }
             } else if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_EPARGNE_CODE)) {
                 String[] splits = message.getMessageBody().split(" ");

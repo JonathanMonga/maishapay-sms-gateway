@@ -628,8 +628,7 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
         Comparator cmp = Collections.reverseOrder();
         Collections.sort(mPendingMessages, cmp);
         removeItems();
-        Snackbar snackbar = Snackbar.make(mFab, getActivity()
-                        .getString(R.string.item_deleted, mPendingMessages.size()),
+        Snackbar snackbar = Snackbar.make(mFab, getActivity().getString(R.string.item_deleted, mPendingMessages.size()),
                 Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.undo, e -> {
             // Restore items
@@ -690,8 +689,7 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
                     if (mPendingMessages.size() > 0) {
                         List<MessageModel> messageModels = new ArrayList<MessageModel>();
                         for (PendingMessage pendingDeletedDeployment : mPendingMessages) {
-                            mPublishMessagePresenter
-                                    .publishMessage(pendingDeletedDeployment.messageModel);
+                            mPublishMessagePresenter.publishMessage(pendingDeletedDeployment.messageModel);
                         }
                         clearItems();
                     }

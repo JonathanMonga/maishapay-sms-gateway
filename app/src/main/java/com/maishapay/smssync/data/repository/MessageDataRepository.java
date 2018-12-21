@@ -100,11 +100,8 @@ public class MessageDataRepository implements MessageRepository {
     @Override
     public Observable<Boolean> publishMessage(MessageEntity messageEntities) {
         return Observable.defer(() -> {
-            boolean status = true;
+            boolean status;
             List<Message> messages = Arrays.asList(mMessageDataMapper.map(messageEntities));
-
-            //mTweetMessage.tweetMessages(messages);
-            //status = mPostMessage.postMessage(messages);
 
             status = mMaishapayMessage.postMessage(messages);
             return Observable.just(status);
@@ -117,8 +114,6 @@ public class MessageDataRepository implements MessageRepository {
             mMessageDataSource = mMessageDataSourceFactory.createMessageDatabaseSource();
             List<Message> messages = mMessageDataSource.syncFetchPending();
             boolean status;
-            //mTweetMessage.tweetMessages(messages);
-            //status = mPostMessage.postMessage(messages);
 
             status = mMaishapayMessage.postMessage(messages);
             return Observable.just(status);
@@ -132,9 +127,11 @@ public class MessageDataRepository implements MessageRepository {
             List<MessageModel> smsMessages = processSms.importMessages();
             List<Message> messages = new ArrayList<>();
             mMessageDataSource = mMessageDataSourceFactory.createMessageDatabaseSource();
+
             for (MessageModel smsMessage : smsMessages) {
                 messages.add(mPostMessage.map(smsMessage));
             }
+
             mMessageDataSource.putMessages(messages);
             return Observable.just(syncFetchPending());
         });

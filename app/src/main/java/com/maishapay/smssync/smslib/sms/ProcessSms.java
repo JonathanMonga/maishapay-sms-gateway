@@ -75,37 +75,34 @@ public class ProcessSms {
      * @param sendDeliveryReport Whether to send delivery report or not
      */
     public void sendSms(MessageModel message, boolean sendDeliveryReport) {
-        LogUtil.logInfo(CLASS_TAG, "sendSms(): Sends SMS to a number: sendTo: %s message: %s",
-                message.getMessageFrom(),
-                message.getMessageBody());
+        LogUtil.logInfo(CLASS_TAG, "sendSms(): Sends SMS to a number: sendTo: %s message: %s", message.getMessageFrom(), message.getMessageBody());
         ArrayList<PendingIntent> sentIntents = new ArrayList<>();
         ArrayList<PendingIntent> deliveryIntents = new ArrayList<>();
         SmsManager sms = SmsManager.getDefault();
+
         ArrayList<String> parts = sms.divideMessage(message.getMessageBody());
 
         for (int i = 0; i < parts.size(); i++) {
 
             Intent sentMessageIntent = new Intent(SENT);
+            sentMessageIntent.setExtrasClassLoader(MessageModel.class.getClassLoader());
             sentMessageIntent.putExtra(SENT_SMS_BUNDLE, message);
 
-            PendingIntent sentIntent = PendingIntent
-                    .getBroadcast(mContext, (int) System.currentTimeMillis(), sentMessageIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, (int) System.currentTimeMillis(), sentMessageIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Intent delivered = new Intent(DELIVERED);
-            delivered.putExtra(DELIVERED_SMS_BUNDLE, message);
+            sentMessageIntent.setExtrasClassLoader(MessageModel.class.getClassLoader());
+            sentMessageIntent.putExtra(DELIVERED_SMS_BUNDLE, message);
 
-            PendingIntent deliveryIntent = PendingIntent
-                    .getBroadcast(mContext, (int) System.currentTimeMillis(), delivered,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent deliveryIntent = PendingIntent.getBroadcast(mContext, (int) System.currentTimeMillis(), delivered, PendingIntent.FLAG_UPDATE_CURRENT);
 
             sentIntents.add(sentIntent);
 
             deliveryIntents.add(deliveryIntent);
         }
+
         if (sendDeliveryReport) {
-            sms.sendMultipartTextMessage(message.getMessageFrom(), null, parts, sentIntents,
-                    deliveryIntents);
+            sms.sendMultipartTextMessage(message.getMessageFrom(), null, parts, sentIntents, deliveryIntents);
             return;
         }
 

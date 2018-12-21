@@ -144,8 +144,7 @@ public class ServiceControl {
      * @param interval    The interval in which to run the scheduled service.
      * @return void
      */
-    public void runServices(Intent intent,
-                            int requestCode, long interval) {
+    public void runServices(Intent intent, int requestCode, long interval) {
         // load current setting
         // is smssync enabled
         if (mPrefsFactory.serviceEnabled().get()) {
@@ -212,7 +211,7 @@ public class ServiceControl {
 
         private Scheduler getScheduler(Context context, FileManager fileManager, Intent intent,
                                        int requestCode) {
-            return new Scheduler(context, fileManager, intent, requestCode,
+            return new Scheduler(context,intent, requestCode,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
     }

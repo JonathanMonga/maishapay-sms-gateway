@@ -114,10 +114,8 @@ public class IntegrationPresenter implements Presenter {
 
 
     public void startSyncServices() {
-
         if (Utility.isDefaultSmsApp(mIntegrationView.getAppContext())) {
-            mPackageManager.setComponentEnabledSetting(mComponentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            mPackageManager.setComponentEnabledSetting(mComponentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
             // Because the services to be run depends on the status of enabled services so save the
             // changes first
             mPrefsFactory.serviceEnabled().set(true);
@@ -133,6 +131,7 @@ public class IntegrationPresenter implements Presenter {
             Utility.showNotification(mIntegrationView.getAppContext());
             return;
         }
+
         mPrefsFactory.serviceEnabled().set(false);
         Utility.makeDefaultSmsApp(mIntegrationView.getActivityContext());
     }
