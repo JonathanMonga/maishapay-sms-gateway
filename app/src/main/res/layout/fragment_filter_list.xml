@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_spacing_large"
+            android:text="@string/filter_prompt" />
+
+        <LinearLayout
+            android:id="@+id/custom_integration_filter_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/view_spacing_large"
+            android:layout_marginTop="@dimen/view_spacing_large"
+            android:background="@android:color/darker_gray" />
+
+        <com.maishapay.smssync.presentation.view.ui.widget.FilterKeywordsView
+            android:id="@+id/white_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:filterKeywordIcon="@drawable/ic_phone_in_talk_grey_900_24dp"
+            app:filterKeywordText="@string/phone_numbers"
+            app:filterTitleIcon="@drawable/ic_call_grey_900_24dp"
+            app:filterTitleText="@string/whitelist" />
+
+        <com.maishapay.smssync.presentation.view.ui.widget.FilterKeywordsView
+            android:id="@+id/black_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:filterKeywordIcon="@drawable/ic_phone_locked_grey_900_24dp"
+            app:filterKeywordText="@string/phone_numbers"
+            app:filterTitleIcon="@drawable/ic_call_grey_900_24dp"
+            app:filterTitleText="@string/blacklist" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
