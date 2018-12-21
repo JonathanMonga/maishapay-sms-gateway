@@ -168,8 +168,7 @@ public abstract class ProcessMessage {
      * @param message the message
      */
     protected boolean postToSentBox(Message message) {
-        Logger.log(TAG,
-                "postToSentBox(): postToWebService message to sent box " + message.toString());
+        Logger.log(TAG, "postToSentBox(): postToWebService message to sent box " + message.toString());
         // Change the status to SENT
         message.setStatus(Message.Status.SENT);
         mMessageDataSource.putMessage(message);

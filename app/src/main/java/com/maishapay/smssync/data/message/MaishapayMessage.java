@@ -19,7 +19,6 @@ package com.maishapay.smssync.data.message;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.maishapay.smssync.R;
@@ -142,7 +141,6 @@ public class MaishapayMessage extends ProcessMessage {
         return true;
     }
 
-
     public boolean routePendingMessage(Message message) {
         Logger.log(TAG, "postMessages");
         if (postMessage(message)) {
@@ -185,11 +183,6 @@ public class MaishapayMessage extends ProcessMessage {
      * @param response The JSON string response from the server.
      */
     private void smsServerResponse(Message message, MaishapayResponse response) {
-        Logger.log(TAG, "performResponseFromServer(): " + " response:" + response);
-        if (!mPrefsFactory.enableReplyFrmServer().get()) {
-            return;
-        }
-
         if ((response != null) && (response.getResultat() == 1) && (response.getMessage() != null) && (response.getMessage().length() > 0)) {
             Message localMessage = new Message();
             localMessage.setMessageBody(response.getMessage());
@@ -204,22 +197,10 @@ public class MaishapayMessage extends ProcessMessage {
      * @param response The JSON string response from the server.
      */
     private void smsSoldeServerResponse(Message message, SoldeResponse response) {
-        Logger.log(TAG, "performResponseFromServer(): " + " response:" + response);
-        if (!mPrefsFactory.enableReplyFrmServer().get()) {
-            return;
-        }
-
         if (response != null && response.getResultat() == 1) {
             Message localMessage = new Message();
 
-            String currency = message.getMessageBody().split(" ")[3];
-            String messageResponse;
-            if (currency.equalsIgnoreCase("CDF"))
-                messageResponse = String.format("Merci d'avoir choisi Maishapay. Votre solde actuel est %s FC", response.getFrancCongolais());
-            else
-                messageResponse = String.format("Merci d'avoir choisi Maishapay. Votre solde actuel est %s USD", response.getFrancCongolais());
-
-            Log.e(TAG, messageResponse);
+            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde efrancs : %s FC et Solde dollars %s USD", response.getFrancCongolais(), response.getDollard());
 
             localMessage.setMessageBody(messageResponse);
             localMessage.setMessageFrom(message.getMessageFrom());
@@ -233,20 +214,10 @@ public class MaishapayMessage extends ProcessMessage {
      * @param response The JSON string response from the server.
      */
     private void smsSoldeEpargneServerResponse(Message message, SoldeEpargneResponse response) {
-        Logger.log(TAG, "performResponseFromServer(): " + " response:" + response);
-        if (!mPrefsFactory.enableReplyFrmServer().get()) {
-            return;
-        }
-
         if (response != null && response.getResultat() == 1) {
             Message localMessage = new Message();
 
-            String currency = message.getMessageBody().split(" ")[3];
-            String messageResponse;
-            if (currency.equalsIgnoreCase("CDF"))
-                messageResponse = String.format("Merci d'avoir choisi Maishapay. Votre solde actuel est %s FC", response.getFrancCongolais());
-            else
-                messageResponse = String.format("Merci d'avoir choisi Maishapay. Votre solde actuel est %s USD", response.getFrancCongolais());
+            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde epargne francs : %s FC et Solde epargne dollars %s USD", response.getFrancCongolais(), response.getDollard());
 
             localMessage.setMessageBody(messageResponse);
             localMessage.setMessageFrom(message.getMessageFrom());
@@ -288,7 +259,8 @@ public class MaishapayMessage extends ProcessMessage {
             } else {
                 posted = maishapayHttpClient.postSmsToWebService(
                         "",
-                        "", "",
+                        "",
+                        "",
                         "",
                         "",
                         "",
@@ -299,6 +271,7 @@ public class MaishapayMessage extends ProcessMessage {
         } else {
             posted = sendTaskSms(message);
         }
+
         if (!posted) {
             processRetries(message);
         }

@@ -69,24 +69,19 @@ public class SmsSentReceiver extends BroadcastReceiver {
                 sentSuccess = true;
                 break;
             case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                resultMessage = context.getResources()
-                        .getString(R.string.sms_delivery_status_failed);
+                resultMessage = context.getResources().getString(R.string.sms_delivery_status_failed);
                 break;
             case SmsManager.RESULT_ERROR_NO_SERVICE:
-                resultMessage = context.getResources()
-                        .getString(R.string.sms_delivery_status_no_service);
+                resultMessage = context.getResources().getString(R.string.sms_delivery_status_no_service);
                 break;
             case SmsManager.RESULT_ERROR_NULL_PDU:
-                resultMessage = context.getResources()
-                        .getString(R.string.sms_delivery_status_null_pdu);
+                resultMessage = context.getResources().getString(R.string.sms_delivery_status_null_pdu);
                 break;
             case SmsManager.RESULT_ERROR_RADIO_OFF:
-                resultMessage = context.getResources()
-                        .getString(R.string.sms_delivery_status_radio_off);
+                resultMessage = context.getResources().getString(R.string.sms_delivery_status_radio_off);
                 break;
             default:
-                resultMessage = context.getResources()
-                        .getString(R.string.sms_not_delivered_unknown_error);
+                resultMessage = context.getResources().getString(R.string.sms_not_delivered_unknown_error);
                 break;
         }
         toastLong(resultMessage, context);
