@@ -25,7 +25,7 @@ import java.util.List;
 import rx.Observable;
 
 /**
- * @author Ushahidi Team <team@ushahidi.com>
+ * @author Maishapay Team <online@maishapay.online>
  */
 public interface MessageRepository extends Repository<MessageEntity> {
 

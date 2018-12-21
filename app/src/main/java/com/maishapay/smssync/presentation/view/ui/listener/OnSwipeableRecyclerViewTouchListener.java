@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Ushahidi Team <team@ushahidi.com>
+ * @author Maishapay Team <online@maishapay.online>
  */
 public class OnSwipeableRecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
 

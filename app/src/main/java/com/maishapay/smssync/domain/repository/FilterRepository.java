@@ -27,7 +27,7 @@ import rx.Observable;
 /**
  * Repository for manipulating {@link FilterEntity} data
  *
- * @author Ushahidi Team <team@ushahidi.com>
+ * @author Maishapay Team <online@maishapay.online>
  */
 public interface FilterRepository extends Repository<FilterEntity> {
 

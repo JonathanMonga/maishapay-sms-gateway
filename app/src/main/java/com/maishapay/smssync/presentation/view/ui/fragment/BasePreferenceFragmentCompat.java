@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2010 - 2015 Ushahidi Inc
+ * Copyright (c) 2018 - 2019 Maishapay
  * All rights reserved
- * Contact: team@ushahidi.com
- * Website: http://www.ushahidi.com
+ * Contact: contact@maishapay.online
+ * Website: http://www.maishapay.online
  * GNU Lesser General Public License Usage
  * This file may be used under the terms of the GNU Lesser
  * General Public License version 3 as published by the Free Software
@@ -12,7 +12,7 @@
  * will be met: http://www.gnu.org/licenses/lgpl.html.
  *
  * If you have questions regarding the use of this file, please contact
- * Ushahidi developers at team@ushahidi.com.
+ * Maishapay developers at contact@maishapay.online.
  */
 
 package com.maishapay.smssync.presentation.view.ui.fragment;
@@ -36,7 +36,7 @@ import com.maishapay.smssync.data.PrefsFactory;
 import javax.inject.Inject;
 
 /**
- * @author Ushahidi Team <team@ushahidi.com>
+ * @author Maishapay Team <online@maishapay.online>
  */
 public abstract class BasePreferenceFragmentCompat extends PreferenceFragmentCompat implements
         AddLogView {

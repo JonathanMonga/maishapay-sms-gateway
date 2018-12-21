@@ -27,7 +27,7 @@ import rx.Observable;
 /**
  * Repository for manipulating {@link com.maishapay.smssync.domain.entity.WebServiceEntity} data
  *
- * @author Ushahidi Team <team@ushahidi.com>
+ * @author Maishapay Team <online@maishapay.online>
  */
 public interface WebServiceRepository extends Repository<WebServiceEntity> {
 
