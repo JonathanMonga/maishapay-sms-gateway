@@ -41,11 +41,10 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.addhen.android.raiburari.presentation.util.Utils;
-import com.maishapay.smssync.presentation.receiver.ConnectivityChangedReceiver;
-import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.presentation.receiver.ConnectivityChangedReceiver;
+import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;

@@ -28,12 +28,11 @@ import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.presentation.view.log.AddLogView;
 import com.maishapay.smssync.presentation.view.ui.widget.TimePreference;
 import com.maishapay.smssync.presentation.view.ui.widget.TimePreferenceFragmentDialog;
-
-import com.maishapay.smssync.R;
 
 /**
  * Fragments for showing general settings

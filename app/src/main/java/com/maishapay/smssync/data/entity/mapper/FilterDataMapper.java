@@ -17,9 +17,8 @@
 
 package com.maishapay.smssync.data.entity.mapper;
 
-import com.maishapay.smssync.domain.entity.FilterEntity;
-
 import com.maishapay.smssync.data.entity.Filter;
+import com.maishapay.smssync.domain.entity.FilterEntity;
 
 import java.util.ArrayList;
 import java.util.List;

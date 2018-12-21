@@ -24,10 +24,9 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.view.ui.widget.TimePreference;
 import com.maishapay.smssync.presentation.view.ui.widget.TimePreferenceFragmentDialog;
-
-import com.maishapay.smssync.R;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseRecyclerViewFragment;
 import com.cocosw.bottomsheet.BottomSheet;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.di.component.MessageComponent;
 import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.presentation.presenter.message.DeleteMessagePresenter;
@@ -61,8 +62,6 @@ import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
 import com.maishapay.smssync.presentation.view.ui.adapter.MessageAdapter;
 import com.maishapay.smssync.presentation.view.ui.widget.DividerItemDecoration;
 import com.nineoldandroids.view.ViewHelper;
-
-import com.maishapay.smssync.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

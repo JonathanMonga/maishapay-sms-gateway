@@ -32,11 +32,10 @@ import android.widget.ImageView;
 
 import com.addhen.android.raiburari.presentation.ui.adapter.BaseRecyclerViewAdapter;
 import com.addhen.android.raiburari.presentation.ui.widget.CapitalizedTextView;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.presentation.view.ui.widget.TextDrawable;
-
-import com.maishapay.smssync.R;
 
 import java.util.ArrayList;
 import java.util.List;

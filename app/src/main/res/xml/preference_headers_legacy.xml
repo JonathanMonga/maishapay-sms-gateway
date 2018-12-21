@@ -24,17 +24,17 @@
     <PreferenceScreen
         android:key="messages_settings_fragment"
         android:title="@string/title_bar_text"
-        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$MessagesSettingsFragment"/>
+        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$MessagesSettingsFragment" />
     <PreferenceScreen
         android:key="automation_settings_fragment"
         android:title="@string/automation"
-        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$AutomationSettingsFragment"/>
+        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$AutomationSettingsFragment" />
     <PreferenceScreen
         android:key="task_settings_fragment"
         android:title="@string/task"
-        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$TaskSettingsFragment"/>
+        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$TaskSettingsFragment" />
     <PreferenceScreen
         android:key="about_settings_fragment"
         android:title="@string/about"
-        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$AboutSettingsFragment"/>
+        app:fragment="com.maishapay.smssync.presentation.view.ui.fragment$AboutSettingsFragment" />
 </PreferenceScreen>

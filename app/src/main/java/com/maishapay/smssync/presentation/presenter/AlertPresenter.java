@@ -19,11 +19,6 @@ package com.maishapay.smssync.presentation.presenter;
 
 import android.content.Context;
 
-import com.maishapay.smssync.domain.entity.WebServiceEntity;
-import com.maishapay.smssync.domain.repository.WebServiceRepository;
-import com.maishapay.smssync.presentation.model.MessageModel;
-import com.maishapay.smssync.presentation.util.Utility;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
@@ -31,6 +26,10 @@ import com.maishapay.smssync.data.entity.Message;
 import com.maishapay.smssync.data.message.PostMessage;
 import com.maishapay.smssync.data.net.AppHttpClient;
 import com.maishapay.smssync.data.net.BaseHttpClient;
+import com.maishapay.smssync.domain.entity.WebServiceEntity;
+import com.maishapay.smssync.domain.repository.WebServiceRepository;
+import com.maishapay.smssync.presentation.model.MessageModel;
+import com.maishapay.smssync.presentation.util.Utility;
 
 import java.util.Date;
 import java.util.List;

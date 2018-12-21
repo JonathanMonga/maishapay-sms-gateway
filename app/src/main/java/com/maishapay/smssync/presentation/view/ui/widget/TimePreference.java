@@ -23,14 +23,13 @@ import android.content.res.TypedArray;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
 import com.maishapay.smssync.presentation.view.ui.fragment.AutomationSettingsFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.TaskSettingsFragment;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.util.Logger;
 
 /**
  * Created by Kamil Kalfas(kkalfas@soldevelo.com) on 19.05.14.

@@ -21,15 +21,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
+import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.presentation.receiver.AutoSyncScheduledReceiver;
 import com.maishapay.smssync.presentation.receiver.CheckTaskScheduledReceiver;
 import com.maishapay.smssync.presentation.receiver.MessageResultsScheduledReceiver;
 import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
 import com.maishapay.smssync.presentation.util.Utility;
-
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
-import com.maishapay.smssync.data.util.Logger;
 
 import javax.inject.Inject;
 

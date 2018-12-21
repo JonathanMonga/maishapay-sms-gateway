@@ -23,14 +23,13 @@ import android.os.Bundle;
 
 import com.addhen.android.raiburari.presentation.di.HasComponent;
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
 import com.maishapay.smssync.presentation.di.component.DaggerWebServiceComponent;
 import com.maishapay.smssync.presentation.di.component.WebServiceComponent;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
 import com.maishapay.smssync.presentation.view.ui.fragment.UpdateWebServiceFragment;
-
-import com.maishapay.smssync.R;
 
 /**
  * Renders {@link UpdateWebServiceFragment}

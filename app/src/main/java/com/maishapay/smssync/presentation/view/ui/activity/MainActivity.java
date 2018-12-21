@@ -42,6 +42,8 @@ import android.view.ViewGroup;
 
 import com.addhen.android.raiburari.presentation.di.HasComponent;
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppActivityComponent;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
@@ -60,9 +62,6 @@ import com.maishapay.smssync.presentation.view.ui.fragment.IntegrationFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.LogFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.MessageFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.PublishedMessageFragment;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
 
 import butterknife.BindView;
 

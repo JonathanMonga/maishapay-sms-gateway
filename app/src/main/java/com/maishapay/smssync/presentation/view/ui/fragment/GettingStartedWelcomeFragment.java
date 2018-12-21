@@ -20,7 +20,6 @@ package com.maishapay.smssync.presentation.view.ui.fragment;
 import android.os.Bundle;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
-
 import com.maishapay.smssync.R;
 
 /**

@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.IntegrationComponent;
 import com.maishapay.smssync.presentation.presenter.integration.IntegrationPresenter;
@@ -32,8 +33,6 @@ import com.maishapay.smssync.presentation.view.integration.IntegrationView;
 import com.maishapay.smssync.presentation.view.ui.activity.ListWebServiceActivity;
 import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
 import com.maishapay.smssync.presentation.view.ui.navigation.Launcher;
-
-import com.maishapay.smssync.R;
 
 import javax.inject.Inject;
 

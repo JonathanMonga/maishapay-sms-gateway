@@ -22,10 +22,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Base64;
 
-import com.maishapay.smssync.domain.entity.HttpNameValuePair;
-
 import com.maishapay.smssync.BuildConfig;
 import com.maishapay.smssync.data.util.Logger;
+import com.maishapay.smssync.domain.entity.HttpNameValuePair;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -253,7 +252,7 @@ public abstract class BaseHttpClient {
         Logger.log(getClass().getName(), message);
     }
 
-    protected void log(String format, Object ... args) {
+    protected void log(String format, Object... args) {
         Logger.log(getClass().getName(), format, args);
     }
 

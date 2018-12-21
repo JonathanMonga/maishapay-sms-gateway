@@ -22,6 +22,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.service.CheckTaskService;
 import com.maishapay.smssync.presentation.service.Scheduler;
@@ -31,10 +34,6 @@ import com.maishapay.smssync.presentation.service.SyncPendingMessagesService;
 import com.maishapay.smssync.presentation.task.SyncType;
 import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
 import com.maishapay.smssync.presentation.util.Utility;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
 
 import java.util.ArrayList;
 

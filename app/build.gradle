@@ -71,26 +71,6 @@ android {
     lintOptions {
         abortOnError false
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    /*
-    flavorDimensions "version"
-    productFlavors {
-
-        withAnalytics {
-            dimension "version"
-            applicationId 'com.maishapay.smssync'
-        }
-
-        noAnalytics {
-            dimension "version"
-            applicationId 'com.maishapay.smssync'
-        }
-    }
-    */
 
     testOptions {
         unitTests.returnDefaultValues = true

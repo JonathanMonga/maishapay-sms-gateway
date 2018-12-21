@@ -22,9 +22,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
-import com.maishapay.smssync.presentation.App;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.App;
 
 import butterknife.BindView;
 import butterknife.OnClick;

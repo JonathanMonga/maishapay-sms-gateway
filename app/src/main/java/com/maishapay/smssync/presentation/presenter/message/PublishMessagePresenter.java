@@ -23,14 +23,13 @@ import com.addhen.android.raiburari.domain.exception.DefaultErrorHandler;
 import com.addhen.android.raiburari.domain.exception.ErrorHandler;
 import com.addhen.android.raiburari.domain.usecase.DefaultSubscriber;
 import com.addhen.android.raiburari.presentation.presenter.Presenter;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.domain.usecase.message.PublishMessageUsecase;
 import com.maishapay.smssync.presentation.exception.ErrorMessageFactory;
 import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.presentation.model.mapper.MessageModelDataMapper;
 import com.maishapay.smssync.presentation.view.message.PublishMessageView;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;

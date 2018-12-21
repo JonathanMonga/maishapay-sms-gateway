@@ -24,9 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.addhen.android.raiburari.presentation.ui.adapter.BaseRecyclerViewAdapter;
-import com.maishapay.smssync.presentation.model.LogModel;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.model.LogModel;
 
 import java.util.List;
 

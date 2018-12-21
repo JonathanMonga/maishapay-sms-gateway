@@ -18,11 +18,10 @@
 package com.maishapay.smssync.presentation.view.ui.fragment;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.view.ui.activity.ListWebServiceActivity;
 import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
-
-import com.maishapay.smssync.R;
 
 import butterknife.OnClick;
 

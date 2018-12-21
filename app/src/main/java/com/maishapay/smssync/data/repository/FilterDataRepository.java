@@ -17,12 +17,11 @@
 
 package com.maishapay.smssync.data.repository;
 
-import com.maishapay.smssync.domain.entity.FilterEntity;
-import com.maishapay.smssync.domain.repository.FilterRepository;
-
 import com.maishapay.smssync.data.entity.mapper.FilterDataMapper;
 import com.maishapay.smssync.data.repository.datasource.filter.FilterDataSource;
 import com.maishapay.smssync.data.repository.datasource.filter.FilterDataSourceFactory;
+import com.maishapay.smssync.domain.entity.FilterEntity;
+import com.maishapay.smssync.domain.repository.FilterRepository;
 
 import java.util.List;
 

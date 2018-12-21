@@ -23,13 +23,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.presentation.service.ServiceConstants;
 import com.maishapay.smssync.presentation.service.UpdateMessageService;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.smslib.sms.ProcessSms;
 
 /**

@@ -26,15 +26,14 @@ import com.addhen.android.raiburari.domain.exception.ErrorHandler;
 import com.addhen.android.raiburari.domain.usecase.DefaultSubscriber;
 import com.addhen.android.raiburari.domain.usecase.Usecase;
 import com.addhen.android.raiburari.presentation.presenter.Presenter;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.domain.entity.WebServiceEntity;
 import com.maishapay.smssync.presentation.exception.ErrorMessageFactory;
 import com.maishapay.smssync.presentation.service.CheckTaskService;
 import com.maishapay.smssync.presentation.service.ServiceControl;
 import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.presentation.view.integration.IntegrationView;
-
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
 
 import java.util.List;
 

@@ -21,15 +21,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.util.Utility;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.presenter.AlertPresenter;
 import com.maishapay.smssync.presentation.service.CheckTaskService;
 import com.maishapay.smssync.presentation.service.ServiceConstants;
 import com.maishapay.smssync.presentation.service.SyncPendingMessagesService;
 import com.maishapay.smssync.presentation.task.SyncType;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.util.Utility;
 
 /**
  * This Receiver class is designed to listen for changes in connectivity. When we receive

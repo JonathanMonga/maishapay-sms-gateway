@@ -31,9 +31,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-import com.maishapay.smssync.presentation.util.Utility;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.util.Utility;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

@@ -27,9 +27,8 @@ import android.widget.TextView;
 
 import com.addhen.android.raiburari.presentation.ui.adapter.BaseRecyclerViewAdapter;
 import com.addhen.android.raiburari.presentation.ui.widget.CapitalizedTextView;
-import com.maishapay.smssync.presentation.model.WebServiceModel;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.model.WebServiceModel;
 
 import java.util.ArrayList;
 import java.util.List;

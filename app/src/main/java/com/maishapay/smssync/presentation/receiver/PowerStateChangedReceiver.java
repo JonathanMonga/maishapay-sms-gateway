@@ -22,15 +22,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.presenter.AlertPresenter;
 import com.maishapay.smssync.presentation.service.AutoSyncScheduledService;
 import com.maishapay.smssync.presentation.service.CheckTaskService;
 import com.maishapay.smssync.presentation.util.Utility;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
 
 /**
  * The manifest Receiver is used to detect changes in battery state. When the system broadcasts a

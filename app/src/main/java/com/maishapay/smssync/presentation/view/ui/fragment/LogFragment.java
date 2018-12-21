@@ -38,6 +38,9 @@ import android.widget.TextView;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseRecyclerViewFragment;
 import com.addhen.android.raiburari.presentation.ui.widget.BloatedRecyclerView;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.presentation.di.component.LogComponent;
 import com.maishapay.smssync.presentation.model.LogModel;
 import com.maishapay.smssync.presentation.model.PhoneStatusInfoModel;
@@ -49,10 +52,6 @@ import com.maishapay.smssync.presentation.view.log.ListLogView;
 import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
 import com.maishapay.smssync.presentation.view.ui.adapter.LogAdapter;
 import com.maishapay.smssync.presentation.view.ui.widget.DividerItemDecoration;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
 
 import java.util.List;
 

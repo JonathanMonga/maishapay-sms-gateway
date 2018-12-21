@@ -31,6 +31,17 @@ public class Filter extends DataEntity {
 
     private Status status;
 
+    public static List<Filter> getFilterList() {
+        List<Filter> filters = new ArrayList<>();
+
+        Filter filter1 = new Filter();
+        filter1.setPhoneNumber("436");
+        filter1.setStatus(Status.WHITELIST);
+        filters.add(filter1);
+
+        return filters;
+    }
+
     public Long getId() {
         return _id;
     }
@@ -60,16 +71,5 @@ public class Filter extends DataEntity {
      */
     public enum Status {
         WHITELIST, BLACKLIST
-    }
-
-    public static List<Filter> getFilterList() {
-        List<Filter> filters = new ArrayList<>();
-
-        Filter filter1 = new Filter();
-        filter1.setPhoneNumber("436");
-        filter1.setStatus(Status.WHITELIST);
-        filters.add(filter1);
-
-        return filters;
     }
 }

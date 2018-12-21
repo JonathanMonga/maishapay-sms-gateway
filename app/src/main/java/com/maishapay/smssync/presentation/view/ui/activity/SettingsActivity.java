@@ -29,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.addhen.android.raiburari.presentation.di.HasComponent;
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppActivityComponent;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
@@ -41,8 +42,6 @@ import com.maishapay.smssync.presentation.view.ui.fragment.GeneralSettingsFragme
 import com.maishapay.smssync.presentation.view.ui.fragment.MessagesSettingsFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.SettingsFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.TaskSettingsFragment;
-
-import com.maishapay.smssync.R;
 
 import butterknife.BindView;
 

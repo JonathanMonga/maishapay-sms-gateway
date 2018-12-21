@@ -28,6 +28,9 @@ import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.twitter.TwitterClient;
 import com.maishapay.smssync.presentation.di.component.FilterComponent;
 import com.maishapay.smssync.presentation.model.FilterModel;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
@@ -39,10 +42,6 @@ import com.maishapay.smssync.presentation.view.ui.activity.MainActivity;
 import com.maishapay.smssync.presentation.view.ui.navigation.Launcher;
 import com.maishapay.smssync.presentation.view.ui.widget.FilterKeywordsView;
 import com.maishapay.smssync.presentation.view.webservice.UpdateWebServiceKeywordsView;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.twitter.TwitterClient;
 
 import java.util.List;
 

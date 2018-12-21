@@ -21,7 +21,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.data.entity.Message;
@@ -34,6 +33,7 @@ import com.maishapay.smssync.data.net.BaseHttpClient;
 import com.maishapay.smssync.data.repository.datasource.message.MessageDataSource;
 import com.maishapay.smssync.data.repository.datasource.webservice.WebServiceDataSource;
 import com.maishapay.smssync.data.util.JsonUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

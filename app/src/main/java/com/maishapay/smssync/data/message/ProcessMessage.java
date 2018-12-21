@@ -21,8 +21,6 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
-import com.maishapay.smssync.presentation.model.MessageModel;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
@@ -31,6 +29,7 @@ import com.maishapay.smssync.data.repository.datasource.filter.FilterDataSource;
 import com.maishapay.smssync.data.repository.datasource.message.MessageDataSource;
 import com.maishapay.smssync.data.repository.datasource.webservice.WebServiceDataSource;
 import com.maishapay.smssync.data.util.Logger;
+import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.smslib.sms.ProcessSms;
 
 import java.util.Date;

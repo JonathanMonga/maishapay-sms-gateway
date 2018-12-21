@@ -22,17 +22,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 
-import com.maishapay.smssync.domain.entity.WebServiceEntity;
-import com.maishapay.smssync.domain.repository.WebServiceRepository;
-import com.maishapay.smssync.presentation.model.MessageModel;
-import com.maishapay.smssync.presentation.util.Utility;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.data.entity.Message;
 import com.maishapay.smssync.data.message.PostMessage;
 import com.maishapay.smssync.data.net.AppHttpClient;
+import com.maishapay.smssync.domain.entity.WebServiceEntity;
+import com.maishapay.smssync.domain.repository.WebServiceRepository;
+import com.maishapay.smssync.presentation.model.MessageModel;
+import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.smslib.model.SmsMessage;
 
 import java.util.Date;

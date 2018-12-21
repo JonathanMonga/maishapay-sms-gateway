@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.di.component.WebServiceComponent;
 import com.maishapay.smssync.presentation.model.SyncSchemeModel;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
@@ -41,8 +42,6 @@ import com.maishapay.smssync.presentation.util.Utility;
 import com.maishapay.smssync.presentation.view.ui.activity.QrcodeReaderActivity;
 import com.maishapay.smssync.presentation.view.webservice.AddWebServiceView;
 import com.maishapay.smssync.presentation.view.webservice.TestWebServiceView;
-
-import com.maishapay.smssync.R;
 
 import javax.inject.Inject;
 

@@ -17,13 +17,12 @@
 
 package com.maishapay.smssync.data.repository;
 
-import com.maishapay.smssync.domain.entity.WebServiceEntity;
-import com.maishapay.smssync.domain.repository.WebServiceRepository;
-
 import com.maishapay.smssync.data.entity.mapper.WebServiceDataMapper;
 import com.maishapay.smssync.data.net.AppHttpClient;
 import com.maishapay.smssync.data.repository.datasource.webservice.WebServiceDataSource;
 import com.maishapay.smssync.data.repository.datasource.webservice.WebServiceDataSourceFactory;
+import com.maishapay.smssync.domain.entity.WebServiceEntity;
+import com.maishapay.smssync.domain.repository.WebServiceRepository;
 
 import java.util.List;
 

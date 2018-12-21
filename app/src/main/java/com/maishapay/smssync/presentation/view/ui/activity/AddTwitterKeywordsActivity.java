@@ -22,12 +22,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
 import com.maishapay.smssync.presentation.view.ui.fragment.AddTwitterKeywordFragment;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
 
 import javax.inject.Inject;
 

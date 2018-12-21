@@ -22,9 +22,8 @@ import android.os.Bundle;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 
-import com.maishapay.smssync.presentation.view.log.AddLogView;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.view.log.AddLogView;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

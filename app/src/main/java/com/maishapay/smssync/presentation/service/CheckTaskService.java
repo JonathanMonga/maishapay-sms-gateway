@@ -19,14 +19,13 @@ package com.maishapay.smssync.presentation.service;
 
 import android.content.Intent;
 
-import com.maishapay.smssync.data.message.MaishapayMessage;
-import com.maishapay.smssync.presentation.presenter.AlertPresenter;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
+import com.maishapay.smssync.data.message.MaishapayMessage;
 import com.maishapay.smssync.data.message.PostMessage;
 import com.maishapay.smssync.data.util.Utility;
+import com.maishapay.smssync.presentation.presenter.AlertPresenter;
 
 import javax.inject.Inject;
 

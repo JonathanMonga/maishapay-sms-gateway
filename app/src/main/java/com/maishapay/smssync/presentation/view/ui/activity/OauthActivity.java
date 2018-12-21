@@ -21,13 +21,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.maishapay.smssync.presentation.App;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.twitter.TwitterAuthConfig;
 import com.maishapay.smssync.data.twitter.TwitterAuthToken;
 import com.maishapay.smssync.data.twitter.TwitterOAuthView;
 import com.maishapay.smssync.data.twitter.TwitterSession;
+import com.maishapay.smssync.presentation.App;
 
 import twitter4j.auth.AccessToken;
 

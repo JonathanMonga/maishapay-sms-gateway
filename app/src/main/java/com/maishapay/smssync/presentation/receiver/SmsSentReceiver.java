@@ -24,16 +24,15 @@ import android.content.Intent;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.cache.FileManager;
+import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.model.MessageModel;
 import com.maishapay.smssync.presentation.service.DeleteMessageService;
 import com.maishapay.smssync.presentation.service.ServiceConstants;
 import com.maishapay.smssync.presentation.service.UpdateMessageService;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
-import com.maishapay.smssync.data.cache.FileManager;
-import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.smslib.sms.ProcessSms;
 
 /**

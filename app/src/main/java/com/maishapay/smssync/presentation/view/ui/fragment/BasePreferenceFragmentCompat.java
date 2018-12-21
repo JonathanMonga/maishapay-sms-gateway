@@ -24,14 +24,13 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 import android.widget.Toast;
 
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.presentation.di.component.SettingsComponent;
 import com.maishapay.smssync.presentation.presenter.AddLogPresenter;
 import com.maishapay.smssync.presentation.service.ServiceControl;
 import com.maishapay.smssync.presentation.view.log.AddLogView;
 import com.maishapay.smssync.presentation.view.ui.activity.SettingsActivity;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
 
 import javax.inject.Inject;
 

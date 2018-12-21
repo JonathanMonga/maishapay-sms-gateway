@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import com.addhen.android.raiburari.presentation.di.HasComponent;
 import com.addhen.android.raiburari.presentation.di.component.ApplicationComponent;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
+import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
 import com.maishapay.smssync.presentation.di.component.AppServiceComponent;
@@ -31,8 +32,6 @@ import com.maishapay.smssync.presentation.di.component.DaggerAppServiceComponent
 import com.maishapay.smssync.presentation.di.module.ServiceModule;
 import com.maishapay.smssync.presentation.receiver.ConnectivityChangedReceiver;
 import com.maishapay.smssync.presentation.util.Utility;
-
-import com.maishapay.smssync.data.util.Logger;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

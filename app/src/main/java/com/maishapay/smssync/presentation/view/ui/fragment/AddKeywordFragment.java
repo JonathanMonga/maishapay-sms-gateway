@@ -29,14 +29,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.util.Utility;
 import com.maishapay.smssync.presentation.di.component.WebServiceComponent;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
 import com.maishapay.smssync.presentation.presenter.webservice.UpdateWebServiceKeywordsPresenter;
 import com.maishapay.smssync.presentation.view.ui.widget.KeywordView;
 import com.maishapay.smssync.presentation.view.webservice.UpdateWebServiceKeywordsView;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.util.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;

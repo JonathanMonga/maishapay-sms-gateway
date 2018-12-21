@@ -34,6 +34,8 @@ import android.widget.RelativeLayout;
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseRecyclerViewFragment;
 import com.addhen.android.raiburari.presentation.ui.listener.RecyclerViewItemTouchListenerAdapter;
 import com.addhen.android.raiburari.presentation.ui.widget.BloatedRecyclerView;
+import com.maishapay.smssync.R;
+import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.presentation.di.component.WebServiceComponent;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
 import com.maishapay.smssync.presentation.presenter.webservice.DeleteWebServicePresenter;
@@ -47,9 +49,6 @@ import com.maishapay.smssync.presentation.view.webservice.DeleteWebServiceView;
 import com.maishapay.smssync.presentation.view.webservice.ListWebServiceView;
 import com.maishapay.smssync.presentation.view.webservice.UpdateWebServiceView;
 import com.nineoldandroids.view.ViewHelper;
-
-import com.maishapay.smssync.R;
-import com.maishapay.smssync.data.PrefsFactory;
 
 import java.util.List;
 

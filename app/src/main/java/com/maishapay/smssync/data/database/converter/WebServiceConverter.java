@@ -19,7 +19,6 @@ package com.maishapay.smssync.data.database.converter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import com.maishapay.smssync.data.entity.SyncScheme;
 import com.maishapay.smssync.data.entity.SyncUrl;
 

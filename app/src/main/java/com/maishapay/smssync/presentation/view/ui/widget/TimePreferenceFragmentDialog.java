@@ -27,10 +27,9 @@ import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.view.View;
 import android.widget.TimePicker;
 
-import com.maishapay.smssync.presentation.App;
-
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.presentation.App;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

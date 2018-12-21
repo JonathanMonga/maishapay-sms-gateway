@@ -31,9 +31,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.maishapay.smssync.presentation.model.WebServiceModel;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.model.WebServiceModel;
 
 import java.util.ArrayList;
 import java.util.List;

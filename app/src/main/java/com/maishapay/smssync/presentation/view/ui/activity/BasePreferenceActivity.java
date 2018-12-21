@@ -32,14 +32,13 @@ import android.widget.Toast;
 import com.addhen.android.raiburari.presentation.BaseApplication;
 import com.addhen.android.raiburari.presentation.di.component.ApplicationComponent;
 import com.addhen.android.raiburari.presentation.di.module.ActivityModule;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.App;
 import com.maishapay.smssync.presentation.di.component.AppActivityComponent;
 import com.maishapay.smssync.presentation.di.component.AppComponent;
 import com.maishapay.smssync.presentation.di.component.DaggerAppActivityComponent;
 import com.maishapay.smssync.presentation.di.component.DaggerSettingsComponent;
 import com.maishapay.smssync.presentation.di.component.SettingsComponent;
-
-import com.maishapay.smssync.R;
 
 /**
  * @author Maishapay Team <online@maishapay.online>

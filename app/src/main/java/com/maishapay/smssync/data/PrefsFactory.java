@@ -24,9 +24,8 @@ import com.addhen.android.raiburari.data.pref.BooleanPreference;
 import com.addhen.android.raiburari.data.pref.IntPreference;
 import com.addhen.android.raiburari.data.pref.LongPreference;
 import com.addhen.android.raiburari.data.pref.StringPreference;
-import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
-
 import com.maishapay.smssync.R;
+import com.maishapay.smssync.presentation.util.TimeFrequencyUtil;
 
 import javax.inject.Inject;
 

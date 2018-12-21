@@ -17,11 +17,10 @@
 
 package com.maishapay.smssync.data.entity.mapper;
 
-import com.maishapay.smssync.domain.entity.SyncSchemeEntity;
-import com.maishapay.smssync.domain.entity.WebServiceEntity;
-
 import com.maishapay.smssync.data.entity.SyncScheme;
 import com.maishapay.smssync.data.entity.SyncUrl;
+import com.maishapay.smssync.domain.entity.SyncSchemeEntity;
+import com.maishapay.smssync.domain.entity.WebServiceEntity;
 
 import java.util.ArrayList;
 import java.util.List;

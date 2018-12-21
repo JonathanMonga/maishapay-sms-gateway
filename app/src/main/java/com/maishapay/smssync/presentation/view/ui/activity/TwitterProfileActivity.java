@@ -22,10 +22,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.view.ui.fragment.AddWebServiceFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.TwitterProfileFragment;
-
-import com.maishapay.smssync.R;
 
 /**
  * Renders {@link AddWebServiceFragment}

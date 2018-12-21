@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.addhen.android.raiburari.presentation.ui.fragment.BaseFragment;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.di.component.FilterComponent;
 import com.maishapay.smssync.presentation.model.FilterModel;
 import com.maishapay.smssync.presentation.model.WebServiceModel;
@@ -38,8 +39,6 @@ import com.maishapay.smssync.presentation.view.filter.AddFilterView;
 import com.maishapay.smssync.presentation.view.filter.DeleteFilterView;
 import com.maishapay.smssync.presentation.view.filter.ListFilterView;
 import com.maishapay.smssync.presentation.view.ui.widget.KeywordView;
-
-import com.maishapay.smssync.R;
 
 import java.util.List;
 

@@ -17,9 +17,8 @@
 
 package com.maishapay.smssync.data.entity.mapper;
 
-import com.maishapay.smssync.domain.entity.LogEntity;
-
 import com.maishapay.smssync.data.entity.Log;
+import com.maishapay.smssync.domain.entity.LogEntity;
 
 import java.util.ArrayList;
 import java.util.List;

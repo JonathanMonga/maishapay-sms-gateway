@@ -33,11 +33,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.addhen.android.raiburari.presentation.ui.activity.BaseActivity;
+import com.maishapay.smssync.R;
 import com.maishapay.smssync.presentation.view.ui.fragment.GettingStartedIntegrationFragment;
 import com.maishapay.smssync.presentation.view.ui.fragment.GettingStartedWelcomeFragment;
 import com.nineoldandroids.view.ViewHelper;
-
-import com.maishapay.smssync.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -51,7 +51,7 @@ import dagger.Provides;
 @Module(includes = ApplicationModule.class)
 public class AppModule {
 
-    private static final String PREF_NAME = "SMS_SYNC_PREF";
+    private static final String PREF_NAME = "MAISHAPAY_SMS_SYNC_PREF";
 
     private App mApp;
 
@@ -86,6 +86,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    MaishapayHttpClient provideMaishapayHttpClient(Context context, FileManager fileManager) {
+        return new MaishapayHttpClient(context, fileManager);
+    }
+
+    @Provides
+    @Singleton
     AppHttpClient provideAppHttpClient(Context context) {
         return new AppHttpClient(context);
     }
@@ -98,8 +104,10 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ProcessMessageResult provideProcessMessageResult(Context context, AppHttpClient appHttpClient,
-                                                     FileManager fileManager, WebServiceDataSourceFactory webServiceDataSourceFactory,
+    ProcessMessageResult provideProcessMessageResult(Context context,
+                                                     AppHttpClient appHttpClient,
+                                                     FileManager fileManager,
+                                                     WebServiceDataSourceFactory webServiceDataSourceFactory,
                                                      MessageDataSourceFactory messageDataSourceFactory) {
         return new ProcessMessageResult(context, appHttpClient, fileManager,
                 webServiceDataSourceFactory.createDatabaseDataSource(),
@@ -132,14 +140,14 @@ public class AppModule {
     @Provides
     @Singleton
     MaishapayMessage provideMaishapayMessage(Context context,
-                                      PrefsFactory prefsFactory,
-                                      MaishapayHttpClient maishapayHttpClient,
-                                      MessageDataSourceFactory messageDataSourceFactory,
-                                      WebServiceDataSourceFactory webServiceDataSourceFactory,
-                                      FilterDataSourceFactory filterDataSourceFactory,
-                                      ProcessSms processSms,
-                                      FileManager fileManager,
-                                      ProcessMessageResult processMessageResult) {
+                                             PrefsFactory prefsFactory,
+                                             MaishapayHttpClient maishapayHttpClient,
+                                             MessageDataSourceFactory messageDataSourceFactory,
+                                             WebServiceDataSourceFactory webServiceDataSourceFactory,
+                                             FilterDataSourceFactory filterDataSourceFactory,
+                                             ProcessSms processSms,
+                                             FileManager fileManager,
+                                             ProcessMessageResult processMessageResult) {
         return new MaishapayMessage(
                 context,
                 prefsFactory,
