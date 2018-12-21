@@ -197,8 +197,7 @@ public abstract class ProcessMessage {
     protected void deleteFromSmsInbox(Message message) {
         if (mPrefsFactory.autoDelete().get()) {
             mProcessSms.delSmsFromInbox(map(message));
-            mFileManager.append(
-                    mContext.getString(R.string.auto_message_deleted, message.getMessageBody()));
+            mFileManager.append(mContext.getString(R.string.auto_message_deleted, message.getMessageBody()));
         }
     }
 
@@ -207,9 +206,11 @@ public abstract class ProcessMessage {
             final Long timeMills = System.currentTimeMillis();
             message.setMessageDate(new Date(timeMills));
         }
+
         if (message.getMessageUuid() == null || TextUtils.isEmpty(message.getMessageUuid())) {
             message.setMessageUuid(mProcessSms.getUuid());
         }
+
         message.setMessageType(Message.Type.TASK);
         if (mPrefsFactory.smsReportDelivery().get()) {
             mProcessSms.sendSms(map(message), true);

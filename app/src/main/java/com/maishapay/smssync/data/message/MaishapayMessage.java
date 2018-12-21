@@ -272,24 +272,16 @@ public class MaishapayMessage extends ProcessMessage {
                     // Process server side response so they are sent as SMS
                     smsSoldeServerResponse(message, maishapayHttpClient.getSoldeServerSuccessResp());
                 } else {
-                    Message msg = new Message();
-                    msg.setMessageBody("Une erreur se produit lors de la demande de votre solde.");
-                    msg.setMessageFrom(message.getMessageFrom());
-                    msg.setMessageType(message.getMessageType());
-                    mProcessSms.sendSms(map(msg), false);
+                    sendErrorSms(message);
                 }
             } else if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_EPARGNE_CODE)) {
                 String[] splits = message.getMessageBody().split(" ");
                 if (splits.length == 4) {
-                    posted = maishapayHttpClient.postSmsToSoldeWebService(splits[2].toLowerCase());
+                    posted = maishapayHttpClient.postSmsToSoldeEpargneWebService(splits[2].toLowerCase());
                     // Process server side response so they are sent as SMS
                     smsSoldeEpargneServerResponse(message, maishapayHttpClient.getSoldeEpargneServerSuccessResp());
                 } else {
-                    Message msg = new Message();
-                    msg.setMessageBody("Une erreur se produit, lors de la démande de votre solde.");
-                    msg.setMessageFrom(message.getMessageFrom());
-                    msg.setMessageType(message.getMessageType());
-                    mProcessSms.sendSms(map(msg), false);
+                    sendErrorSms(message);
                 }
             } else {
                 posted = maishapayHttpClient.postSmsToWebService(
@@ -309,6 +301,14 @@ public class MaishapayMessage extends ProcessMessage {
             processRetries(message);
         }
         return posted;
+    }
+
+    private void sendErrorSms(Message msg) {
+        Message message = new Message();
+        message.setMessageBody("Une erreur se produit, lors de la démande de votre solde.");
+        message.setMessageFrom(msg.getMessageFrom());
+        message.setMessageType(msg.getMessageType());
+        mProcessSms.sendSms(map(message), false);
     }
 
     public void performTask() {

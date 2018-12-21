@@ -8,10 +8,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'Maishapay'
+            keyAlias 'Maishapay SMSSync'
             keyPassword 'Maishapay'
             storeFile file('C:/Users/Administrateur/Documents/Android projects/MaishapaySmsSync/keystore/keystore.jks')
-            storePassword 'Maishapay'
+            storePassword 'maishapay'
         }
     }
 
@@ -36,6 +36,7 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
             debuggable true
+            signingConfig signingConfigs.config
         }
 
         buildTypes.each {
