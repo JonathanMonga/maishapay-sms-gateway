@@ -26,7 +26,7 @@ import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.data.entity.ConfirmRetraitResponse;
-import com.maishapay.smssync.data.entity.MaishapayResponse;
+import com.maishapay.smssync.data.entity.MobileMoneyResponse;
 import com.maishapay.smssync.data.entity.Message;
 import com.maishapay.smssync.data.entity.MessagesUUIDSResponse;
 import com.maishapay.smssync.data.entity.QueuedMessages;
@@ -185,11 +185,11 @@ public class MaishapayMessage extends ProcessMessage {
      *
      * @param response The JSON string response from the server.
      */
-    private void smsServerResponse(Message message, MaishapayResponse response) {
-        if ((response != null) && (response.getResultat() == 1) && (response.getMessage() != null) && (response.getMessage().length() > 0)) {
+    private void smsMobileMoneyServerResponse(MobileMoneyResponse response) {
+        if (response != null && response.getResultat() == 1) {
             Message localMessage = new Message();
-            localMessage.setMessageBody(response.getMessage());
-            localMessage.setMessageFrom(message.getMessageFrom());
+            localMessage.setMessageBody(response.getTransaction_id());
+            localMessage.setMessageFrom(String.format("+%s", response.getSend_to()));
             sendTaskSms(localMessage);
         }
     }
@@ -336,7 +336,7 @@ public class MaishapayMessage extends ProcessMessage {
                     sendErrorSms(message, MaishapaySMSError.CONFIRM_RETRAIT_ERROR);
                 }
             } else {
-                posted = maishapayHttpClient.postSmsToWebService(
+                posted = maishapayHttpClient.postSmsToMobileMoneyWebService(
                         "",
                         "",
                         "",
@@ -344,7 +344,7 @@ public class MaishapayMessage extends ProcessMessage {
                         "",
                         "");
                 // Process server side response so they are sent as SMS
-                smsServerResponse(message, maishapayHttpClient.getServerSuccessResp());
+                smsMobileMoneyServerResponse(maishapayHttpClient.getMobileMoneyServerSuccessResp());
             }
         } else {
             posted = sendTaskSms(message);

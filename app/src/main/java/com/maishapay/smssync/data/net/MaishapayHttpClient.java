@@ -19,7 +19,6 @@ package com.maishapay.smssync.data.net;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -27,7 +26,7 @@ import com.maishapay.smssync.BuildConfig;
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.cache.FileManager;
 import com.maishapay.smssync.data.entity.ConfirmRetraitResponse;
-import com.maishapay.smssync.data.entity.MaishapayResponse;
+import com.maishapay.smssync.data.entity.MobileMoneyResponse;
 import com.maishapay.smssync.data.entity.RetraitResponse;
 import com.maishapay.smssync.data.entity.SoldeEpargneResponse;
 import com.maishapay.smssync.data.entity.SoldeResponse;
@@ -55,7 +54,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
 
     private String mClientError;
 
-    private MaishapayResponse maishapayResponse;
+    private MobileMoneyResponse mMobileMoneyResponse;
 
     private SoldeResponse mSoldeResponse;
 
@@ -78,14 +77,14 @@ public class MaishapayHttpClient extends BaseHttpClient {
      *
      * @return boolean
      */
-    public boolean postSmsToWebService(String transactionId,
-                                       String from,
-                                       String sentTo,
-                                       String amount,
-                                       String currency,
-                                       String operatorName) {
+    public boolean postSmsToMobileMoneyWebService(String transactionId,
+                                                  String from,
+                                                  String sentTo,
+                                                  String amount,
+                                                  String currency,
+                                                  String operatorName) {
         Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initRequest(transactionId, from, sentTo, amount, currency, operatorName);
+        initMobileMoneyRequest(transactionId, from, sentTo, amount, currency, operatorName);
 
         final Gson gson = new Gson();
         try {
@@ -97,24 +96,13 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return false;
             }
 
-            MaishapayResponse maishapayResponse;
+            MobileMoneyResponse mobileMoneyResponse;
 
             try {
-                maishapayResponse = gson.fromJson(response.body().string(), MaishapayResponse.class);
+                mobileMoneyResponse = gson.fromJson(response.body().string(), MobileMoneyResponse.class);
 
-                if (maishapayResponse.getResultat() == 1) {
-                    // auto response message is enabled to be received from the
-                    // server.
-                    setServerSuccessResp(maishapayResponse);
-                    return true;
-                }
-
-                String payloadError = maishapayResponse.getMessage();
-                if (!TextUtils.isEmpty(payloadError)) {
-                    setServerError(payloadError, statusCode);
-                } else {
-                    setServerError(response.body().string(), statusCode);
-                }
+                setMobileMoneyServerSuccessResp(mobileMoneyResponse);
+                return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
                 setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
@@ -151,12 +139,8 @@ public class MaishapayHttpClient extends BaseHttpClient {
             try {
                 soldeResponse = gson.fromJson(response.body().string(), SoldeResponse.class);
 
-                if (soldeResponse.getResultat() == 1) {
-                    // auto response message is enabled to be received from the
-                    // server.
-                    setSoldeServerSuccessResp(soldeResponse);
-                    return true;
-                }
+                setSoldeServerSuccessResp(soldeResponse);
+                return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
                 setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
@@ -193,12 +177,8 @@ public class MaishapayHttpClient extends BaseHttpClient {
             try {
                 soldeEpargneResponse = gson.fromJson(response.body().string(), SoldeEpargneResponse.class);
 
-                if (soldeEpargneResponse.getResultat() == 1) {
-                    // auto response message is enabled to be received from the
-                    // server.
-                    setSoldeEpargneServerSuccessResp(soldeEpargneResponse);
-                    return true;
-                }
+                setSoldeEpargneServerSuccessResp(soldeEpargneResponse);
+                return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
                 setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
@@ -236,6 +216,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 retraitResponse = gson.fromJson(response.body().string(), RetraitResponse.class);
 
                 setRetraitServerSuccessResp(retraitResponse);
+                return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
                 setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
@@ -273,6 +254,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 confirmRetraitResponse = gson.fromJson(response.body().string(), ConfirmRetraitResponse.class);
 
                 setConfirmRetraitServerSuccessResp(confirmRetraitResponse);
+                return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
                 setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
@@ -452,12 +434,12 @@ public class MaishapayHttpClient extends BaseHttpClient {
 
     }
 
-    private void initRequest(String transactionId,
-                             String from,
-                             String sentTo,
-                             String amount,
-                             String currency,
-                             String operatorName) {
+    private void initMobileMoneyRequest(String transactionId,
+                                        String from,
+                                        String sentTo,
+                                        String amount,
+                                        String currency,
+                                        String operatorName) {
         setUrl(BuildConfig.END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
@@ -551,12 +533,12 @@ public class MaishapayHttpClient extends BaseHttpClient {
         mFileManager.append(mServerError);
     }
 
-    public MaishapayResponse getServerSuccessResp() {
-        return maishapayResponse;
+    public MobileMoneyResponse getMobileMoneyServerSuccessResp() {
+        return mMobileMoneyResponse;
     }
 
-    public void setServerSuccessResp(MaishapayResponse maishapayResponse) {
-        this.maishapayResponse = maishapayResponse;
+    public void setMobileMoneyServerSuccessResp(MobileMoneyResponse mobileMoneyResponse) {
+        this.mMobileMoneyResponse = mobileMoneyResponse;
     }
 
     public SoldeResponse getSoldeServerSuccessResp() {

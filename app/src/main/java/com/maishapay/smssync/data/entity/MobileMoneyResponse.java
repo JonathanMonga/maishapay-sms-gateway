@@ -21,16 +21,19 @@ import com.google.gson.annotations.SerializedName;
 /**
  * A user response
  */
-public class MaishapayResponse {
+public class MobileMoneyResponse {
 
     @SerializedName("resultat")
     private int resultat;
 
+    @SerializedName("send_to")
+    private String send_to;
+
+    @SerializedName("transaction_id")
+    private String transaction_id;
+
     @SerializedName("message")
     private String message;
-
-    @SerializedName("sent_to")
-    private String sent_to;
 
     public int getResultat() {
         return resultat;
@@ -40,19 +43,27 @@ public class MaishapayResponse {
         this.resultat = resultat;
     }
 
+    public String getSend_to() {
+        return send_to;
+    }
+
+    public void setSend_to(String send_to) {
+        this.send_to = send_to;
+    }
+
+    public String getTransaction_id() {
+        return transaction_id;
+    }
+
+    public void setTransaction_id(String transaction_id) {
+        this.transaction_id = transaction_id;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getSent_to() {
-        return sent_to;
-    }
-
-    public void setSent_to(String sent_to) {
-        this.sent_to = sent_to;
     }
 }
