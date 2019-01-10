@@ -76,8 +76,7 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
 
     private AppServiceComponent mAppServiceComponent;
 
-    synchronized protected static WifiManager.WifiLock getWifiLock(
-            Context context) {
+    synchronized protected static WifiManager.WifiLock getWifiLock(Context context) {
         // keep wifi alive
         if (wifilock == null) {
             WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -94,8 +93,7 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
      * @return SmsMessage
      */
     public static final SmsMessage[] getMessagesFromIntent(Intent intent) {
-        new SmsReceiverService()
-                .log("getMessagesFromIntent(): getting SMS message");
+        new SmsReceiverService().log("getMessagesFromIntent(): getting SMS message");
 
         Object[] messages = (Object[]) intent.getSerializableExtra("pdus");
 
@@ -136,10 +134,8 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
         synchronized (mStartingServiceSync) {
 
             if (mStartingService == null) {
-                PowerManager pm = (PowerManager) context
-                        .getSystemService(Context.POWER_SERVICE);
-                mStartingService = pm.newWakeLock(
-                        PowerManager.PARTIAL_WAKE_LOCK, CLASS_TAG);
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, CLASS_TAG);
                 mStartingService.setReferenceCounted(false);
             }
 
@@ -235,7 +231,6 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
 
                 if (messages.length == 1 || sms.isReplace()) {
                     body = sms.getDisplayMessageBody();
-
                 } else {
                     StringBuilder bodyText = new StringBuilder();
                     for (int i = 0; i < messages.length; i++) {
@@ -259,15 +254,12 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
     }
 
     private void showNotification(boolean status) {
-        Utility.BuildNotification buildNotification = Utility
-                .getSyncNotificationStatus(this, getString(R.string.sync_in_progress));
+        Utility.BuildNotification buildNotification = Utility.getSyncNotificationStatus(this, getString(R.string.sync_in_progress));
         NotificationCompat.Builder builder = buildNotification.getBuilder();
         if (!status) {
-            Utility.showSyncNotificationStatus(this, getString(R.string.sending_failed),
-                    buildNotification);
+            Utility.showSyncNotificationStatus(this, getString(R.string.sending_failed), buildNotification);
         } else {
-            Utility.showSyncNotificationStatus(this, getString(R.string.sending_succeeded),
-                    buildNotification);
+            Utility.showSyncNotificationStatus(this, getString(R.string.sending_succeeded), buildNotification);
             mFileManager.append(getString(R.string.sending_succeeded));
         }
         Intent statusIntent = new Intent(ServiceConstants.AUTO_SYNC_ACTION);
@@ -277,7 +269,6 @@ public class SmsReceiverService extends Service implements HasComponent<AppServi
     public ApplicationComponent getApplicationComponent() {
         return ((App) getApplication()).getApplicationComponent();
     }
-
 
     protected void log(String message) {
         Logger.log(getClass().getName(), message);

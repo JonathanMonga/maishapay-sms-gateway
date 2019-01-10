@@ -68,8 +68,7 @@ public class Scheduler {
         Logger.log(CLASS_TAG, "updating scheduler");
         if (mAlarmManager != null && mPendingIntent != null) {
             Logger.log(CLASS_TAG, "Update scheduler to " + interval);
-            mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + 60000, interval, mPendingIntent);
+            mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 60000, interval, mPendingIntent);
         }
     }
 }

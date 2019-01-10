@@ -29,6 +29,8 @@ public class SoldeEpargneResponse {
     private String francCongolais;
     @SerializedName("USD")
     private String dollard;
+    @SerializedName("message")
+    private String message;
 
     public int getResultat() {
         return resultat;
@@ -52,5 +54,13 @@ public class SoldeEpargneResponse {
 
     public void setDollard(String dollard) {
         this.dollard = dollard;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

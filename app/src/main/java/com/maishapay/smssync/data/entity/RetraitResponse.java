@@ -21,14 +21,20 @@ import com.google.gson.annotations.SerializedName;
 /**
  * A user response
  */
-public class SoldeResponse {
+public class RetraitResponse {
 
     @SerializedName("resultat")
     private int resultat;
-    @SerializedName("FC")
-    private String francCongolais;
-    @SerializedName("USD")
-    private String dollard;
+    @SerializedName("token")
+    private String token;
+    @SerializedName("expediteur")
+    private String expediteur;
+    @SerializedName("agent")
+    private String agent;
+    @SerializedName("montant")
+    private String montant;
+    @SerializedName("monnaie")
+    private String monnaie;
     @SerializedName("message")
     private String message;
 
@@ -40,20 +46,44 @@ public class SoldeResponse {
         this.resultat = resultat;
     }
 
-    public String getFrancCongolais() {
-        return francCongolais;
+    public String getToken() {
+        return token;
     }
 
-    public void setFrancCongolais(String francCongolais) {
-        this.francCongolais = francCongolais;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getDollard() {
-        return dollard;
+    public String getExpediteur() {
+        return expediteur;
     }
 
-    public void setDollard(String dollard) {
-        this.dollard = dollard;
+    public void setExpediteur(String expediteur) {
+        this.expediteur = expediteur;
+    }
+
+    public String getAgent() {
+        return agent;
+    }
+
+    public void setAgent(String agent) {
+        this.agent = agent;
+    }
+
+    public String getMontant() {
+        return montant;
+    }
+
+    public void setMontant(String montant) {
+        this.montant = montant;
+    }
+
+    public String getMonnaie() {
+        return monnaie;
+    }
+
+    public void setMonnaie(String monnaie) {
+        this.monnaie = monnaie;
     }
 
     public String getMessage() {

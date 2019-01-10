@@ -17,6 +17,7 @@
 
 package com.maishapay.smssync.data.message;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -24,10 +25,12 @@ import com.google.gson.Gson;
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
 import com.maishapay.smssync.data.cache.FileManager;
+import com.maishapay.smssync.data.entity.ConfirmRetraitResponse;
 import com.maishapay.smssync.data.entity.MaishapayResponse;
 import com.maishapay.smssync.data.entity.Message;
 import com.maishapay.smssync.data.entity.MessagesUUIDSResponse;
 import com.maishapay.smssync.data.entity.QueuedMessages;
+import com.maishapay.smssync.data.entity.RetraitResponse;
 import com.maishapay.smssync.data.entity.SmssyncResponse;
 import com.maishapay.smssync.data.entity.SoldeEpargneResponse;
 import com.maishapay.smssync.data.entity.SoldeResponse;
@@ -57,7 +60,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class MaishapayMessage extends ProcessMessage {
-    private static final List<String> keywords = new ArrayList<>(Arrays.asList("TXN Id", "Trans. ID", "Transaction ID", "PP", StatusSMS.SOLDE_CODE, StatusSMS.SOLDE_EPARGNE_CODE));
+    private static final List<String> keywords = new ArrayList<>(Arrays.asList("TXN Id", "Trans. ID", "Transaction ID", "PP", MaishapaySMSCode.SOLDE_COMPTE_COURANT_CODE, MaishapaySMSCode.SOLDE_COMPTE_EPARGNE_CODE, MaishapaySMSCode.RETRAIT_CODE));
 
     private MaishapayHttpClient maishapayHttpClient;
     private ProcessMessageResult mProcessMessageResult;
@@ -200,11 +203,13 @@ public class MaishapayMessage extends ProcessMessage {
         if (response != null && response.getResultat() == 1) {
             Message localMessage = new Message();
 
-            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde efrancs : %s FC et Solde dollars %s USD", response.getFrancCongolais(), response.getDollard());
+            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde francs : %s FC et Solde dollars : %s USD", response.getFrancCongolais(), response.getDollard());
 
             localMessage.setMessageBody(messageResponse);
             localMessage.setMessageFrom(message.getMessageFrom());
             sendTaskSms(localMessage);
+        } else {
+            sendErrorSms(message, response.getResultat(), response.getMessage());
         }
     }
 
@@ -217,11 +222,67 @@ public class MaishapayMessage extends ProcessMessage {
         if (response != null && response.getResultat() == 1) {
             Message localMessage = new Message();
 
-            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde epargne francs : %s FC et Solde epargne dollars %s USD", response.getFrancCongolais(), response.getDollard());
+            String messageResponse = String.format("Merci d'avoir choisi Maishapay. Solde epargne francs : %s FC et Solde epargne dollars : %s USD", response.getFrancCongolais(), response.getDollard());
 
             localMessage.setMessageBody(messageResponse);
             localMessage.setMessageFrom(message.getMessageFrom());
             sendTaskSms(localMessage);
+        } else {
+            sendErrorSms(message, response.getResultat(), response.getMessage());
+        }
+    }
+
+    /**
+     * Send the response received from the server as SMS
+     *
+     * @param response The JSON string response from the server.
+     */
+    private void smsRetraitServerResponse(Message message, RetraitResponse response) {
+        if (response != null && response.getResultat() == 1) {
+            Message localToExpeditaire = new Message();
+
+            String messageToExpeditaire = String.format("Votre retrait de %s %s d'etre confirmer par %s. Votre jeton est %s valide pour 6 jours.", response.getMontant(), response.getMonnaie(), response.getAgent(), response.getToken());
+
+            localToExpeditaire.setMessageBody(messageToExpeditaire);
+            localToExpeditaire.setMessageFrom(message.getMessageFrom());
+            sendTaskSms(localToExpeditaire);
+
+            Message localToAgent = new Message();
+
+            String messageToAgent = String.format("Vous avez une demande de retrait de %s %s par %s.", response.getMontant(), response.getMonnaie(), response.getExpediteur());
+
+            localToAgent.setMessageBody(messageToAgent);
+            localToAgent.setMessageFrom(String.format("+%s", response.getAgent()));
+            sendTaskSms(localToAgent);
+        } else {
+            sendErrorSms(message, response.getResultat(), response.getMessage());
+        }
+    }
+
+    /**
+     * Send the response received from the server as SMS
+     *
+     * @param response The JSON string response from the server.
+     */
+    private void smsConfirmRetraitServerResponse(Message message, ConfirmRetraitResponse response) {
+        if (response != null && response.getResultat() == 1) {
+            Message localToAgent = new Message();
+
+            String messageToAgent = String.format("%s %s a effectuer un retrait de %s %s au pres de vous.", response.getPrenom_expediteur(), response.getNom_expediteur(), response.getMontant(), response.getMonnaie());
+
+            localToAgent.setMessageBody(messageToAgent);
+            localToAgent.setMessageFrom(message.getMessageFrom());
+            sendTaskSms(localToAgent);
+
+            Message localToExpeditaire = new Message();
+
+            String messageToExpeditaire = String.format("Vous avez retirer %s %s au pres de l'agent %s %s. Merci d'avoir choisie Maishapay.", response.getMontant(), response.getMonnaie(), response.getPrenom_agent(), response.getNom_agent());
+
+            localToExpeditaire.setMessageBody(messageToExpeditaire);
+            localToExpeditaire.setMessageFrom(String.format("+%s", response.getNumero_expediteur()));
+            sendTaskSms(localToExpeditaire);
+        } else {
+            sendErrorSms(message, response.getResultat(), response.getMessage());
         }
     }
 
@@ -238,27 +299,44 @@ public class MaishapayMessage extends ProcessMessage {
         boolean posted = false;
 
         if (message.getMessageType().equals(Message.Type.PENDING)) {
-            if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_CODE)) {
-                String[] splits = message.getMessageBody().split(" ");
-                if (splits.length == 4) {
-                    posted = maishapayHttpClient.postSmsToSoldeWebService(splits[2].toLowerCase());
+            if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_COURANT_CODE.toLowerCase())) {
+                String [] splits = message.getMessageBody().split(" ");
+                if (splits.length == 2) {
+                    posted = maishapayHttpClient.postSmsToSoldeWebService(message.getMessageFrom(), splits[1].toLowerCase());
                     // Process server side response so they are sent as SMS
                     smsSoldeServerResponse(message, maishapayHttpClient.getSoldeServerSuccessResp());
                 } else {
-                    sendErrorSms(message);
+                    sendErrorSms(message, MaishapaySMSError.SOLDE_COMPTE_COURANT_ERROR);
                 }
-            } else if (message.getMessageBody().toLowerCase().startsWith(StatusSMS.SOLDE_EPARGNE_CODE)) {
-                String[] splits = message.getMessageBody().split(" ");
-                if (splits.length == 4) {
-                    posted = maishapayHttpClient.postSmsToSoldeEpargneWebService(splits[2].toLowerCase());
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_EPARGNE_CODE.toLowerCase())) {
+                String [] splits = message.getMessageBody().split(" ");
+                if (splits.length == 2) {
+                    posted = maishapayHttpClient.postSmsToSoldeEpargneWebService(message.getMessageFrom(), splits[1].toLowerCase());
                     // Process server side response so they are sent as SMS
                     smsSoldeEpargneServerResponse(message, maishapayHttpClient.getSoldeEpargneServerSuccessResp());
                 } else {
-                    sendErrorSms(message);
+                    sendErrorSms(message, MaishapaySMSError.SOLDE_COMPTE_EPARGNE_ERROR);
+                }
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.RETRAIT_CODE)) {
+                String[] splits = message.getMessageBody().split(" ");
+                if (splits.length == 5) {
+                    posted = maishapayHttpClient.postSmsToRetraitWebService(message.getMessageFrom(), splits[1].toLowerCase(), splits[2].toLowerCase(), splits[3].toUpperCase(), splits[4].toLowerCase());
+                    // Process server side response so they are sent as SMS
+                    smsRetraitServerResponse(message, maishapayHttpClient.getRetraitServerSuccessResp());
+                } else {
+                    sendErrorSms(message, MaishapaySMSError.RETRAIT_ERROR);
+                }
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.CONFIRM_RETRAIT_CODE)) {
+                String[] splits = message.getMessageBody().split(" ");
+                if (splits.length == 6) {
+                    posted = maishapayHttpClient.postSmsToConfirmRetraitWebService(splits[1].toLowerCase(), message.getMessageFrom(), splits[2].toLowerCase(), splits[3].toLowerCase(), splits[4].toUpperCase(), splits[5].toLowerCase());
+                    // Process server side response so they are sent as SMS
+                    smsConfirmRetraitServerResponse(message, maishapayHttpClient.getConfirmRetraitServerSuccessResp());
+                } else {
+                    sendErrorSms(message, MaishapaySMSError.CONFIRM_RETRAIT_ERROR);
                 }
             } else {
                 posted = maishapayHttpClient.postSmsToWebService(
-                        "",
                         "",
                         "",
                         "",
@@ -278,9 +356,18 @@ public class MaishapayMessage extends ProcessMessage {
         return posted;
     }
 
-    private void sendErrorSms(Message msg) {
+    @SuppressLint("DefaultLocale")
+    private void sendErrorSms(Message msg, int errorNumero, String errorMessage) {
         Message message = new Message();
-        message.setMessageBody("Une erreur se produit, lors de la démande de votre solde.");
+        message.setMessageBody(String.format("Erreur N˚ %d %s", errorNumero, errorMessage));
+        message.setMessageFrom(msg.getMessageFrom());
+        message.setMessageType(msg.getMessageType());
+        mProcessSms.sendSms(map(message), false);
+    }
+
+    private void sendErrorSms(Message msg, String errorType) {
+        Message message = new Message();
+        message.setMessageBody(String.format("Une erreur se produit, lors de la démande de votre %s.", errorType));
         message.setMessageFrom(msg.getMessageFrom());
         message.setMessageType(msg.getMessageType());
         mProcessSms.sendSms(map(message), false);
@@ -321,12 +408,9 @@ public class MaishapayMessage extends ProcessMessage {
                 mFileManager.append("HTTP Client Response: " + response);
                 smssyncResponses = gson.fromJson(response, SmssyncResponse.class);
             } catch (Exception e) {
-                Logger.log(TAG, "Task checking crashed " + e.getMessage() + " response: "
-                        + messageHttpClient.getResponse());
+                Logger.log(TAG, "Task checking crashed " + e.getMessage() + " response: " + messageHttpClient.getResponse());
                 try {
-                    mFileManager.append(
-                            "Task crashed: " + e.getMessage() + " response: " + messageHttpClient
-                                    .getResponse().body().string());
+                    mFileManager.append("Task crashed: " + e.getMessage() + " response: " + messageHttpClient.getResponse().body().string());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -339,24 +423,19 @@ public class MaishapayMessage extends ProcessMessage {
                 if (smssyncResponses.getPayload() != null) {
                     String task = smssyncResponses.getPayload().getTask();
                     Logger.log(TAG, "Task " + task);
-                    boolean secretOk = TextUtils.isEmpty(urlSecret) ||
-                            urlSecret.equals(smssyncResponses.getPayload().getSecret());
+                    boolean secretOk = TextUtils.isEmpty(urlSecret) || urlSecret.equals(smssyncResponses.getPayload().getSecret());
                     if ((secretOk) && (task != null) && (task.equals("send"))) {
                         if (mPrefsFactory.messageResultsAPIEnable().get()) {
-                            sendSMSWithMessageResultsAPIEnabled(syncUrl,
-                                    smssyncResponses.getPayload().getMessages());
+                            sendSMSWithMessageResultsAPIEnabled(syncUrl, smssyncResponses.getPayload().getMessages());
                         } else {
                             //backwards compatibility
-                            sendSMSWithMessageResultsAPIDisabled(
-                                    smssyncResponses.getPayload().getMessages());
+                            sendSMSWithMessageResultsAPIDisabled(smssyncResponses.getPayload().getMessages());
                         }
-
                     } else {
                         Logger.log(TAG, mContext.getString(R.string.no_task));
                         logActivities(R.string.no_task);
                         mErrorMessage = mContext.getString(R.string.no_task);
                     }
-
                 } else { // 'payload' data may not be present in JSON
                     Logger.log(TAG, mContext.getString(R.string.no_task));
                     logActivities(R.string.no_task);
@@ -364,9 +443,7 @@ public class MaishapayMessage extends ProcessMessage {
                 }
             }
 
-            mFileManager.append(
-                    mContext.getString(R.string.finish_task_check) + " " + mErrorMessage + " for "
-                            + syncUrl.getUrl());
+            mFileManager.append(mContext.getString(R.string.finish_task_check) + " " + mErrorMessage + " for " + syncUrl.getUrl());
         }
     }
 
@@ -382,8 +459,17 @@ public class MaishapayMessage extends ProcessMessage {
         return Utility.getPhoneNumber(mContext, mPrefsFactory);
     }
 
-    protected interface StatusSMS {
-        String SOLDE_CODE = "maishapay s1";
-        String SOLDE_EPARGNE_CODE = "maishapay s2";
+    protected interface MaishapaySMSCode {
+        String SOLDE_COMPTE_COURANT_CODE = "MSC";
+        String SOLDE_COMPTE_EPARGNE_CODE = "MSE";
+        String RETRAIT_CODE = "MRT";
+        String CONFIRM_RETRAIT_CODE = "MCR";
+    }
+
+    protected interface MaishapaySMSError {
+        String SOLDE_COMPTE_COURANT_ERROR = "SOLDE COMPTE COURANT";
+        String SOLDE_COMPTE_EPARGNE_ERROR = "SOLDE COMPTE EPARGNE";
+        String RETRAIT_ERROR = "RETRAIT";
+        String CONFIRM_RETRAIT_ERROR = "CONFIRM_RETRAIT";
     }
 }

@@ -56,6 +56,13 @@ android {
             it.buildConfigField 'String', 'SENT_TIMESTAMP_PARAM', SENT_TIMESTAMP_PARAM
             it.buildConfigField 'String', 'SENT_TO_PARAM', SENT_TO_PARAM
             it.buildConfigField 'String', 'OPERATOR_NAME_PARAM', OPERATOR_NAME_PARAM
+            it.buildConfigField 'String', 'RETRAIT_REQUEST_PARAM', RETRAIT_REQUEST_PARAM
+            it.buildConfigField 'String', 'CONFIRM_RETRAIT_REQUEST_PARAM', CONFIRM_RETRAIT_REQUEST_PARAM
+            it.buildConfigField 'String', 'MOBILE_MONEY_REQUEST_PARAM', MOBILE_MONEY_REQUEST_PARAM
+            it.buildConfigField 'String', 'EXPEDITAIRE_PARAM', EXPEDITAIRE_PARAM
+            it.buildConfigField 'String', 'DESTINATAIRE_PARAM', DESTINATAIRE_PARAM
+            it.buildConfigField 'String', 'PIN_PARAM', PIN_PARAM
+            it.buildConfigField 'String', 'TOKEN_PARAM', TOKEN_PARAM
         }
     }
     defaultConfig {

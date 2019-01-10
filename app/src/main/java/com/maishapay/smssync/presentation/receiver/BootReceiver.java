@@ -92,10 +92,7 @@ public class BootReceiver extends BroadcastReceiver {
 
                     // start the scheduler for 'task check' service
                     long interval = TimeFrequencyUtil.calculateInterval(prefsFactory.taskCheckTime().get());
-                    new Scheduler(context, new Intent(context, CheckTaskScheduledReceiver.class),
-                            ServiceConstants.CHECK_TASK_SCHEDULED_SERVICE_REQUEST_CODE,
-                            PendingIntent.FLAG_UPDATE_CURRENT).updateScheduler(
-                            interval);
+                    new Scheduler(context, new Intent(context, CheckTaskScheduledReceiver.class), ServiceConstants.CHECK_TASK_SCHEDULED_SERVICE_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT).updateScheduler(interval);
                 }
 
                 // Start the service message results api service

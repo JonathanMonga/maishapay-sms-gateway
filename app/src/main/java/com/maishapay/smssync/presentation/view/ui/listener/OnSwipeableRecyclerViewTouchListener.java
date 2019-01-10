@@ -18,6 +18,7 @@
 
 package com.maishapay.smssync.presentation.view.ui.listener;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -41,6 +42,7 @@ import java.util.List;
 /**
  * @author Maishapay Team <online@maishapay.online>
  */
+
 public class OnSwipeableRecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
 
     // Cached ViewConfiguration and system-wide constant values
@@ -97,8 +99,7 @@ public class OnSwipeableRecyclerViewTouchListener implements RecyclerView.OnItem
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity() * 16;
         mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
-        mAnimationTime = recyclerView.getContext().getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
+        mAnimationTime = recyclerView.getContext().getResources().getInteger(android.R.integer.config_shortAnimTime);
         mRecyclerView = recyclerView;
         mSwipeListener = listener;
 
@@ -297,6 +298,7 @@ public class OnSwipeableRecyclerViewTouchListener implements RecyclerView.OnItem
         return false;
     }
 
+    @SuppressLint("RestrictedApi")
     private void performDismiss(final View dismissView, final int dismissPosition) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation

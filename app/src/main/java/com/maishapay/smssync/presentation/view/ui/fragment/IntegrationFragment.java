@@ -118,6 +118,7 @@ public class IntegrationFragment extends BaseFragment implements IntegrationView
             mIntegrationPresenter.loadActiveWebService();
             return;
         }
+
         mIntegrationPresenter.stopSyncServices();
     }
 
