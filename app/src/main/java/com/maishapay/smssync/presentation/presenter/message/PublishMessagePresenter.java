@@ -18,7 +18,6 @@
 package com.maishapay.smssync.presentation.presenter.message;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.addhen.android.raiburari.domain.exception.DefaultErrorHandler;
 import com.addhen.android.raiburari.domain.exception.ErrorHandler;
@@ -83,7 +82,15 @@ public class PublishMessagePresenter implements Presenter {
             return;
         }
 
-        Log.e(PublishMessagePresenter.class.getSimpleName(), messageModels.getMessageBody());
+       /*
+        MessageModel messageLocal = new MessageModel();
+        messageLocal.setMessageType(MessageModel.Type.PENDING);
+        messageLocal.setMessageDate(new Date());
+        messageLocal.setMessageFrom("+243996980422");
+        messageLocal.setMessageBody("MSE 1234");
+
+        Log.e(PublishMessagePresenter.class.getSimpleName(), messageLocal.getMessageBody());
+        */
 
         mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModels));
         mPublishMessageUsecase.execute(new PublishMessageSubscriber());

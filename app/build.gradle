@@ -41,6 +41,7 @@ android {
 
         buildTypes.each {
             it.buildConfigField 'String', 'END_POINT', END_POINT
+            it.buildConfigField 'String', 'TEST_END_POINT', TEST_END_POINT
             it.buildConfigField 'String', 'CONTENT_TYPE_PARAM', CONTENT_TYPE_PARAM
             it.buildConfigField 'String', 'METHOD_PARAM', METHOD_PARAM
             it.buildConfigField 'String', 'ENTITY_PARAM', ENTITY_PARAM

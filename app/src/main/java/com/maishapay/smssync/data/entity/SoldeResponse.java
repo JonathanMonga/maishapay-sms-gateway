@@ -25,10 +25,8 @@ public class SoldeResponse {
 
     @SerializedName("resultat")
     private int resultat;
-    @SerializedName("FC")
-    private String francCongolais;
-    @SerializedName("USD")
-    private String dollard;
+    @SerializedName("solde_compte_courant")
+    private Balance mBalance;
     @SerializedName("message")
     private String message;
 
@@ -40,20 +38,12 @@ public class SoldeResponse {
         this.resultat = resultat;
     }
 
-    public String getFrancCongolais() {
-        return francCongolais;
+    public Balance getBalance() {
+        return mBalance;
     }
 
-    public void setFrancCongolais(String francCongolais) {
-        this.francCongolais = francCongolais;
-    }
-
-    public String getDollard() {
-        return dollard;
-    }
-
-    public void setDollard(String dollard) {
-        this.dollard = dollard;
+    public void setBalance(Balance balance) {
+        mBalance = balance;
     }
 
     public String getMessage() {

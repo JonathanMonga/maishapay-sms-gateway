@@ -105,11 +105,11 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
             }
         } catch (Exception e) {
             log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
         }
 
         return false;
@@ -143,11 +143,11 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
             }
         } catch (Exception e) {
             log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
         }
 
         return false;
@@ -181,11 +181,11 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
             }
         } catch (Exception e) {
             log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
         }
 
         return false;
@@ -219,11 +219,11 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
             }
         } catch (Exception e) {
             log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
         }
 
         return false;
@@ -257,18 +257,18 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
             }
         } catch (Exception e) {
             log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.END_POINT);
+            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
         }
 
         return false;
     }
 
     private void initSoldeEpargneRequest(String number, String pin) {
-        setUrl(BuildConfig.END_POINT);
+        setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -302,13 +302,13 @@ public class MaishapayHttpClient extends BaseHttpClient {
             }
         } catch (Exception e) {
             log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.END_POINT);
+            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
         }
 
     }
 
     private void initSoldeRequest(String number, String pin) {
-        setUrl(BuildConfig.END_POINT);
+        setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -342,13 +342,13 @@ public class MaishapayHttpClient extends BaseHttpClient {
             }
         } catch (Exception e) {
             log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.END_POINT);
+            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
         }
 
     }
 
     private void initRetraitRequest(String number, String agent, String montant, String monnaie, String pin) {
-        setUrl(BuildConfig.END_POINT);
+        setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -385,13 +385,13 @@ public class MaishapayHttpClient extends BaseHttpClient {
             }
         } catch (Exception e) {
             log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.END_POINT);
+            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
         }
 
     }
 
     private void initConfirmRetraitRequest(String token, String agent, String expeditaire, String montant, String monnaie, String pin) {
-        setUrl(BuildConfig.END_POINT);
+        setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -429,7 +429,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
             }
         } catch (Exception e) {
             log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.END_POINT);
+            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
         }
 
     }
@@ -440,7 +440,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
                                         String amount,
                                         String currency,
                                         String operatorName) {
-        setUrl(BuildConfig.END_POINT);
+        setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -477,7 +477,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
             }
         } catch (Exception e) {
             log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.END_POINT);
+            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
         }
 
     }
