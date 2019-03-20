@@ -19,6 +19,7 @@ package com.maishapay.smssync.data.net;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -95,7 +96,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
     }
 
     private void initMaishapayWebService(String number, String message) {
-        setUrl(BuildConfig.TEST_END_POINT);
+        setUrl(BuildConfig.END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
         SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
@@ -103,6 +104,9 @@ public class MaishapayHttpClient extends BaseHttpClient {
         // Clear set params before adding new one to clear the previous one
         getParams().clear();
         setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
+
+        Log.e("MAISHAPAY", number);
+        Log.e("MAISHAPAY", message);
 
         addParam(BuildConfig.ENTITY_PARAM, BuildConfig.MESSAGE_REQUEST_PARAM);
         addParam(BuildConfig.TELEPHONE_PARAM, number);

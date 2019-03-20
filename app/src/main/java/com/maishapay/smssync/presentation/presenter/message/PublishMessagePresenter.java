@@ -25,6 +25,7 @@ import com.addhen.android.raiburari.domain.usecase.DefaultSubscriber;
 import com.addhen.android.raiburari.presentation.presenter.Presenter;
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.PrefsFactory;
+import com.maishapay.smssync.data.entity.Log;
 import com.maishapay.smssync.domain.usecase.message.PublishMessageUsecase;
 import com.maishapay.smssync.presentation.exception.ErrorMessageFactory;
 import com.maishapay.smssync.presentation.model.MessageModel;
@@ -82,17 +83,19 @@ public class PublishMessagePresenter implements Presenter {
             return;
         }
 
+        /*
         MessageModel messageModel = new MessageModel();
         //Test Mobile Money
         //messageModel.setMessageBody("Transaction ID: CI190121.17.09.B68052: Vous avez recu 40.0000 USD a partir de 0996980422,MONGA NSENGA JONATHAN.Votre nous solde est 41000.0000 CDF. Cout:0.0000 CDF");
         //messageModel.setMessageFrom("436");
 
-        messageModel.setMessageBody("*222*1996");
+        messageModel.setMessageBody("*223*1996#");
         messageModel.setMessageFrom("+243996980422");
 
         messageModel.setMessageType(MessageModel.Type.PENDING);
+        */
 
-        mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModel));
+        mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModels));
         mPublishMessageUsecase.execute(new PublishMessageSubscriber());
     }
 

@@ -192,12 +192,15 @@ public class MaishapayMessage extends ProcessMessage {
      * @param response The JSON string response from the server.
      */
     private void smsMaishapayServerResponse(Message message, MaishapayResponse response) {
+
         if (response != null) {
             if(response.getResultat() == 1) {
                 Log.e("Maishapay", response.getMessage());
             } else {
                 Log.e("Maishapay", response.getMessage());
             }
+        } else {
+            Log.e("Maishapay", "Null");
         }
     }
 
@@ -213,20 +216,24 @@ public class MaishapayMessage extends ProcessMessage {
     private boolean postToWebService(Message message) {
         boolean posted = false;
 
+        if(message.getMessageFrom().length() == 9)
+            message.setMessageFrom(String.format("243%s", message.getMessageFrom()));
+        if(message.getMessageFrom().length() == 10)
+            message.setMessageFrom(String.format("243%s", message.getMessageFrom().substring(1)));
         if(message.getMessageFrom().length() == 13)
             message.setMessageFrom(message.getMessageFrom().substring(1));
 
         if (message.getMessageType().equals(Message.Type.PENDING)) {
-            if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_COURANT_CODE.toLowerCase()) && message.getMessageBody().toLowerCase().split("\\.").length == 2) {
+            if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_COURANT_CODE.toLowerCase())) {
                 posted = maishapayHttpClient.postMaishapayWebService(message.getMessageFrom(), message.getMessageBody());
                 smsMaishapayServerResponse(message, maishapayHttpClient.getMaishapayServerSuccessResponse());
-            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_EPARGNE_CODE.toLowerCase()) && message.getMessageBody().toLowerCase().split("\\.").length == 2) {
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.SOLDE_COMPTE_EPARGNE_CODE.toLowerCase())) {
                 posted = maishapayHttpClient.postMaishapayWebService(message.getMessageFrom(), message.getMessageBody());
                 smsMaishapayServerResponse(message, maishapayHttpClient.getMaishapayServerSuccessResponse());
-            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.RETRAIT_CODE.toLowerCase()) && message.getMessageBody().toLowerCase().split("\\.").length == 5) {
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.RETRAIT_CODE.toLowerCase())) {
                 posted = maishapayHttpClient.postMaishapayWebService(message.getMessageFrom(), message.getMessageBody());
                 smsMaishapayServerResponse(message, maishapayHttpClient.getMaishapayServerSuccessResponse());
-            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.CONFIRM_DEPOT_CODE.toLowerCase()) && message.getMessageBody().toLowerCase().split("\\.").length == 2) {
+            } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.CONFIRM_DEPOT_CODE.toLowerCase())) {
                 posted = maishapayHttpClient.postMaishapayWebService(message.getMessageFrom(), message.getMessageBody());
                 smsMaishapayServerResponse(message, maishapayHttpClient.getMaishapayServerSuccessResponse());
             } else if (message.getMessageBody().toLowerCase().startsWith(MaishapaySMSCode.TRANSACTION_CODE_CI.toLowerCase()) ||
