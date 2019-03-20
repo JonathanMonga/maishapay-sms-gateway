@@ -84,11 +84,11 @@ public class PublishMessagePresenter implements Presenter {
 
         MessageModel messageModel = new MessageModel();
         //Test Mobile Money
-        messageModel.setMessageBody("Transaction ID: CI190121.17.09.B68052: Vous avez recu 40.0000 USD a partir de 0996980422,MONGA NSENGA JONATHAN.Votre nous solde est 41000.0000 CDF. Cout:0.0000 CDF");
-        messageModel.setMessageFrom("436");
+        //messageModel.setMessageBody("Transaction ID: CI190121.17.09.B68052: Vous avez recu 40.0000 USD a partir de 0996980422,MONGA NSENGA JONATHAN.Votre nous solde est 41000.0000 CDF. Cout:0.0000 CDF");
+        //messageModel.setMessageFrom("436");
 
-        //messageModel.setMessageBody("MDA.681784");
-        //messageModel.setMessageFrom("+243996980422");
+        messageModel.setMessageBody("*222*1996");
+        messageModel.setMessageFrom("+243996980422");
 
         messageModel.setMessageType(MessageModel.Type.PENDING);
 

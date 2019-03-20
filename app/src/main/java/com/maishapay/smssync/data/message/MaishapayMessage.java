@@ -116,15 +116,11 @@ public class MaishapayMessage extends ProcessMessage {
             if (postMessage(message)) {
                 postToSentBox(message);
                 //deleteFromSmsInbox(message);
-            } else {
-                //savePendingMessage(message);
             }
 
             return true;
         }
 
-        // There is no internet save message
-        //savePendingMessage(message);
         return false;
     }
 
@@ -336,13 +332,13 @@ public class MaishapayMessage extends ProcessMessage {
     }
 
     protected interface MaishapaySMSCode {
-        String SOLDE_COMPTE_COURANT_CODE = "MSC";
-        String SOLDE_COMPTE_EPARGNE_CODE = "MSE";
-        String RETRAIT_CODE = "MRT";
+        String SOLDE_COMPTE_COURANT_CODE = "*222*";
+        String SOLDE_COMPTE_EPARGNE_CODE = "*223*";
+        String RETRAIT_CODE = "*224*";
         String TRANSACTION_CODE_CI = "Transaction ID: CI";
         String TRANS_CODE_CI = "Trans. ID: CI";
         String TRANSACTION_CODE_PP = "Transaction ID: PP";
         String TRANS_CODE_PP = "Trans. ID: PP";
-        String CONFIRM_DEPOT_CODE = "MDA";
+        String CONFIRM_DEPOT_CODE = "*224*";
     }
 }
