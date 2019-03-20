@@ -40,6 +40,8 @@ android {
         }
 
         buildTypes.each {
+            it.buildConfigField 'String', 'MESSAGE_REQUEST_PARAM', MESSAGE_REQUEST_PARAM
+            it.buildConfigField 'String', 'MESSAGE_BODY_REQUEST_PARAM', MESSAGE_BODY_REQUEST_PARAM
             it.buildConfigField 'String', 'END_POINT', END_POINT
             it.buildConfigField 'String', 'TEST_END_POINT', TEST_END_POINT
             it.buildConfigField 'String', 'CONTENT_TYPE_PARAM', CONTENT_TYPE_PARAM

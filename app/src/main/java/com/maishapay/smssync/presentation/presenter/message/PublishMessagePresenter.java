@@ -82,28 +82,26 @@ public class PublishMessagePresenter implements Presenter {
             return;
         }
 
-       /*
-        MessageModel messageLocal = new MessageModel();
-        messageLocal.setMessageType(MessageModel.Type.PENDING);
-        messageLocal.setMessageDate(new Date());
-        messageLocal.setMessageFrom("+243996980422");
-        messageLocal.setMessageBody("MSE 1234");
+        MessageModel messageModel = new MessageModel();
+        //Test Mobile Money
+        messageModel.setMessageBody("Transaction ID: CI190121.17.09.B68052: Vous avez recu 40.0000 USD a partir de 0996980422,MONGA NSENGA JONATHAN.Votre nous solde est 41000.0000 CDF. Cout:0.0000 CDF");
+        messageModel.setMessageFrom("436");
 
-        Log.e(PublishMessagePresenter.class.getSimpleName(), messageLocal.getMessageBody());
-        */
+        //messageModel.setMessageBody("MDA.681784");
+        //messageModel.setMessageFrom("+243996980422");
 
-        mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModels));
+        messageModel.setMessageType(MessageModel.Type.PENDING);
+
+        mPublishMessageUsecase.setMessageEntity(mMessageModelDataMapper.map(messageModel));
         mPublishMessageUsecase.execute(new PublishMessageSubscriber());
     }
 
     private void showErrorMessage(ErrorHandler errorHandler) {
-        String errorMessage = ErrorMessageFactory.create(mPublishMessageView.getAppContext(),
-                errorHandler.getException());
+        String errorMessage = ErrorMessageFactory.create(mPublishMessageView.getAppContext(), errorHandler.getException());
         mPublishMessageView.showError(errorMessage);
     }
 
     private class PublishMessageSubscriber extends DefaultSubscriber<Boolean> {
-
         @Override
         public void onStart() {
             mPublishMessageView.hideRetry();

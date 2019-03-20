@@ -16,21 +16,15 @@
 
 package com.maishapay.smssync.data.entity;
 
-import android.annotation.SuppressLint;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
  * A user response
  */
-public class SoldeResponse {
+public class MaishapayResponse {
 
     @SerializedName("resultat")
     private int resultat;
-    @SerializedName("transaction_id")
-    private int transaction_id;
-    @SerializedName("solde_compte_courant")
-    private Balance mBalance;
     @SerializedName("message")
     private String message;
 
@@ -42,29 +36,11 @@ public class SoldeResponse {
         this.resultat = resultat;
     }
 
-    public int getTransaction_id() {
-        return transaction_id;
-    }
-
-    public void setTransaction_id(int transaction_id) {
-        this.transaction_id = transaction_id;
-    }
-
-    public Balance getBalance() {
-        return mBalance;
-    }
-
-    public void setBalance(Balance balance) {
-        mBalance = balance;
-    }
-
-    @SuppressLint("DefaultLocale")
     public String getMessage() {
-        return String.format("Maishapay trans ID : %d.\nSolde CDF : %s FC.\nSolde USD : %s $", getTransaction_id(), getBalance().getFrancCongolais(), getBalance().getDollard());
+        return message;
     }
 
-    @SuppressLint("DefaultLocale")
-    public String getErrorMessage() {
-        return String.format("Maishapay trans ID : %d.\n%s", getTransaction_id(), message);
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

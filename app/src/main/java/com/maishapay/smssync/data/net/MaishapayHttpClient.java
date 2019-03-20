@@ -25,13 +25,8 @@ import com.google.gson.JsonSyntaxException;
 import com.maishapay.smssync.BuildConfig;
 import com.maishapay.smssync.R;
 import com.maishapay.smssync.data.cache.FileManager;
-import com.maishapay.smssync.data.entity.ConfirmRetraitResponse;
-import com.maishapay.smssync.data.entity.MobileMoneyResponse;
-import com.maishapay.smssync.data.entity.RetraitResponse;
-import com.maishapay.smssync.data.entity.SoldeEpargneResponse;
-import com.maishapay.smssync.data.entity.SoldeResponse;
+import com.maishapay.smssync.data.entity.MaishapayResponse;
 import com.maishapay.smssync.data.entity.SyncScheme;
-import com.maishapay.smssync.data.util.Logger;
 import com.maishapay.smssync.domain.entity.HttpNameValuePair;
 
 import java.util.List;
@@ -54,15 +49,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
 
     private String mClientError;
 
-    private MobileMoneyResponse mMobileMoneyResponse;
-
-    private SoldeResponse mSoldeResponse;
-
-    private SoldeEpargneResponse mSoldeEpargneResponse;
-
-    private RetraitResponse mRetraitResponse;
-
-    private ConfirmRetraitResponse mConfirmRetraitResponse;
+    private MaishapayResponse mMaishapayResponse;
 
     private FileManager mFileManager;
 
@@ -77,14 +64,8 @@ public class MaishapayHttpClient extends BaseHttpClient {
      *
      * @return boolean
      */
-    public boolean postSmsToMobileMoneyWebService(String transactionId,
-                                                  String from,
-                                                  String sentTo,
-                                                  String amount,
-                                                  String currency,
-                                                  String operatorName) {
-        Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initMobileMoneyRequest(transactionId, from, sentTo, amount, currency, operatorName);
+    public boolean postMaishapayWebService(String number, String message) {
+        initMaishapayWebService(number, message);
 
         final Gson gson = new Gson();
         try {
@@ -96,12 +77,10 @@ public class MaishapayHttpClient extends BaseHttpClient {
                 return false;
             }
 
-            MobileMoneyResponse mobileMoneyResponse;
-
+            MaishapayResponse maishapayResponse;
             try {
-                mobileMoneyResponse = gson.fromJson(response.body().string(), MobileMoneyResponse.class);
-
-                setMobileMoneyServerSuccessResp(mobileMoneyResponse);
+                maishapayResponse = gson.fromJson(response.body().string(), MaishapayResponse.class);
+                setMaishapayServerSuccessResponse(maishapayResponse);
                 return true;
             } catch (JsonSyntaxException e) {
                 log("Request failed", e);
@@ -115,159 +94,7 @@ public class MaishapayHttpClient extends BaseHttpClient {
         return false;
     }
 
-    /**
-     * Post sms to the configured sync URL
-     *
-     * @return boolean
-     */
-    public boolean postSmsToSoldeWebService(String number, String pin) {
-        Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initSoldeRequest(number, pin);
-
-        final Gson gson = new Gson();
-        try {
-            execute();
-            Response response = getResponse();
-            int statusCode = response.code();
-            if (statusCode != 200 && statusCode != 201) {
-                setServerError("bad http return code", statusCode);
-                return false;
-            }
-
-            SoldeResponse soldeResponse;
-
-            try {
-                soldeResponse = gson.fromJson(response.body().string(), SoldeResponse.class);
-
-                setSoldeServerSuccessResp(soldeResponse);
-                return true;
-            } catch (JsonSyntaxException e) {
-                log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-            }
-        } catch (Exception e) {
-            log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-        }
-
-        return false;
-    }
-
-    /**
-     * Post sms to the configured sync URL
-     *
-     * @return boolean
-     */
-    public boolean postSmsToSoldeEpargneWebService(String number, String pin) {
-        Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initSoldeEpargneRequest(number, pin);
-
-        final Gson gson = new Gson();
-        try {
-            execute();
-            Response response = getResponse();
-            int statusCode = response.code();
-            if (statusCode != 200 && statusCode != 201) {
-                setServerError("bad http return code", statusCode);
-                return false;
-            }
-
-            SoldeEpargneResponse soldeEpargneResponse;
-
-            try {
-                soldeEpargneResponse = gson.fromJson(response.body().string(), SoldeEpargneResponse.class);
-
-                setSoldeEpargneServerSuccessResp(soldeEpargneResponse);
-                return true;
-            } catch (JsonSyntaxException e) {
-                log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-            }
-        } catch (Exception e) {
-            log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-        }
-
-        return false;
-    }
-
-    /**
-     * Post sms to the configured sync URL
-     *
-     * @return boolean
-     */
-    public boolean postSmsToRetraitWebService(String number, String agent, String montant, String monnaie, String pin) {
-        Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initRetraitRequest(number, agent, montant, monnaie, pin);
-
-        final Gson gson = new Gson();
-        try {
-            execute();
-            Response response = getResponse();
-            int statusCode = response.code();
-            if (statusCode != 200 && statusCode != 201) {
-                setServerError("bad http return code", statusCode);
-                return false;
-            }
-
-            RetraitResponse retraitResponse;
-
-            try {
-                retraitResponse = gson.fromJson(response.body().string(), RetraitResponse.class);
-
-                setRetraitServerSuccessResp(retraitResponse);
-                return true;
-            } catch (JsonSyntaxException e) {
-                log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-            }
-        } catch (Exception e) {
-            log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-        }
-
-        return false;
-    }
-
-    /**
-     * Post sms to the configured sync URL
-     *
-     * @return boolean
-     */
-    public boolean postSmsToConfirmRetraitWebService(String token, String agent, String expeditaire, String montant, String monnaie, String pin) {
-        Logger.log(MaishapayHttpClient.class.getSimpleName(), "posting messages");
-        initConfirmRetraitRequest(token, agent, expeditaire, montant, monnaie, pin);
-
-        final Gson gson = new Gson();
-        try {
-            execute();
-            Response response = getResponse();
-            int statusCode = response.code();
-            if (statusCode != 200 && statusCode != 201) {
-                setServerError("bad http return code", statusCode);
-                return false;
-            }
-
-            ConfirmRetraitResponse confirmRetraitResponse;
-
-            try {
-                confirmRetraitResponse = gson.fromJson(response.body().string(), ConfirmRetraitResponse.class);
-
-                setConfirmRetraitServerSuccessResp(confirmRetraitResponse);
-                return true;
-            } catch (JsonSyntaxException e) {
-                log("Request failed", e);
-                setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-            }
-        } catch (Exception e) {
-            log("Request failed", e);
-            setClientError("Request failed. " + e.getMessage() + "\n sync url " + BuildConfig.TEST_END_POINT);
-        }
-
-        return false;
-    }
-
-    private void initSoldeEpargneRequest(String number, String pin) {
+    private void initMaishapayWebService(String number, String message) {
         setUrl(BuildConfig.TEST_END_POINT);
 
         SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
@@ -277,184 +104,9 @@ public class MaishapayHttpClient extends BaseHttpClient {
         getParams().clear();
         setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
 
-        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.SOLDE_EPARGNE_PERSONNEL_REQUEST_PARAM);
+        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.MESSAGE_REQUEST_PARAM);
         addParam(BuildConfig.TELEPHONE_PARAM, number);
-        addParam(BuildConfig.PIN_PARAM, pin);
-
-        try {
-            setHttpEntity(format);
-        } catch (Exception e) {
-            log("Failed to set request body", e);
-            setClientError("Failed to format request body " + e.getMessage());
-        }
-
-        try {
-            switch (method) {
-                case POST:
-                    setMethod(HttpMethod.POST);
-                    break;
-                case PUT:
-                    setMethod(HttpMethod.PUT);
-                    break;
-                default:
-                    log("Invalid server method");
-                    setClientError("Failed to set request method.");
-            }
-        } catch (Exception e) {
-            log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
-        }
-
-    }
-
-    private void initSoldeRequest(String number, String pin) {
-        setUrl(BuildConfig.TEST_END_POINT);
-
-        SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
-        SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
-
-        // Clear set params before adding new one to clear the previous one
-        getParams().clear();
-        setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
-
-        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.SOLDE_REQUEST_PARAM);
-        addParam(BuildConfig.TELEPHONE_PARAM, number);
-        addParam(BuildConfig.PIN_PARAM, pin);
-
-        try {
-            setHttpEntity(format);
-        } catch (Exception e) {
-            log("Failed to set request body", e);
-            setClientError("Failed to format request body " + e.getMessage());
-        }
-
-        try {
-            switch (method) {
-                case POST:
-                    setMethod(HttpMethod.POST);
-                    break;
-                case PUT:
-                    setMethod(HttpMethod.PUT);
-                    break;
-                default:
-                    log("Invalid server method");
-                    setClientError("Failed to set request method.");
-            }
-        } catch (Exception e) {
-            log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
-        }
-
-    }
-
-    private void initRetraitRequest(String number, String agent, String montant, String monnaie, String pin) {
-        setUrl(BuildConfig.TEST_END_POINT);
-
-        SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
-        SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
-
-        // Clear set params before adding new one to clear the previous one
-        getParams().clear();
-        setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
-
-        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.RETRAIT_REQUEST_PARAM);
-        addParam(BuildConfig.EXPEDITAIRE_PARAM, number);
-        addParam(BuildConfig.DESTINATAIRE_PARAM, agent);
-        addParam(BuildConfig.MONTANT_PARAM, montant);
-        addParam(BuildConfig.MONNAIE_PARAM, monnaie);
-        addParam(BuildConfig.PIN_PARAM, pin);
-
-        try {
-            setHttpEntity(format);
-        } catch (Exception e) {
-            log("Failed to set request body", e);
-            setClientError("Failed to format request body " + e.getMessage());
-        }
-
-        try {
-            switch (method) {
-                case POST:
-                    setMethod(HttpMethod.POST);
-                    break;
-                case PUT:
-                    setMethod(HttpMethod.PUT);
-                    break;
-                default:
-                    log("Invalid server method");
-                    setClientError("Failed to set request method.");
-            }
-        } catch (Exception e) {
-            log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
-        }
-
-    }
-
-    private void initConfirmRetraitRequest(String token, String agent, String expeditaire, String montant, String monnaie, String pin) {
-        setUrl(BuildConfig.TEST_END_POINT);
-
-        SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
-        SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
-
-        // Clear set params before adding new one to clear the previous one
-        getParams().clear();
-        setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
-
-        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.CONFIRM_RETRAIT_REQUEST_PARAM);
-        addParam(BuildConfig.TOKEN_PARAM, token);
-        addParam(BuildConfig.TELEPHONE_PARAM, agent);
-        addParam(BuildConfig.DESTINATAIRE_PARAM, expeditaire);
-        addParam(BuildConfig.MONTANT_PARAM, montant);
-        addParam(BuildConfig.MONNAIE_PARAM, monnaie);
-        addParam(BuildConfig.PIN_PARAM, pin);
-
-        try {
-            setHttpEntity(format);
-        } catch (Exception e) {
-            log("Failed to set request body", e);
-            setClientError("Failed to format request body " + e.getMessage());
-        }
-
-        try {
-            switch (method) {
-                case POST:
-                    setMethod(HttpMethod.POST);
-                    break;
-                case PUT:
-                    setMethod(HttpMethod.PUT);
-                    break;
-                default:
-                    log("Invalid server method");
-                    setClientError("Failed to set request method.");
-            }
-        } catch (Exception e) {
-            log("failed to set request method.", e);
-            setClientError("Failed to set request method. sync url \n" + BuildConfig.TEST_END_POINT);
-        }
-
-    }
-
-    private void initMobileMoneyRequest(String transactionId,
-                                        String from,
-                                        String sentTo,
-                                        String amount,
-                                        String currency,
-                                        String operatorName) {
-        setUrl(BuildConfig.TEST_END_POINT);
-
-        SyncScheme.SyncMethod method = SyncScheme.SyncMethod.POST;
-        SyncScheme.SyncDataFormat format = SyncScheme.SyncDataFormat.URLEncoded;
-        // Clear set params before adding new one to clear the previous one
-        getParams().clear();
-        setHeader("Content-Type", BuildConfig.CONTENT_TYPE_PARAM);
-
-        addParam(BuildConfig.ENTITY_PARAM, BuildConfig.SEND_REQUEST_PARAM);
-        addParam(BuildConfig.TRANSACTION_ID_PARAM, transactionId);
-        addParam(BuildConfig.FROM_PARAM, from);
-        addParam(BuildConfig.SENT_TO_PARAM, sentTo);
-        addParam(BuildConfig.MONTANT_PARAM, amount);
-        addParam(BuildConfig.MONNAIE_PARAM, currency);
-        addParam(BuildConfig.OPERATOR_NAME_PARAM, operatorName);
+        addParam(BuildConfig.MESSAGE_BODY_REQUEST_PARAM, message);
 
         try {
             setHttpEntity(format);
@@ -533,43 +185,11 @@ public class MaishapayHttpClient extends BaseHttpClient {
         mFileManager.append(mServerError);
     }
 
-    public MobileMoneyResponse getMobileMoneyServerSuccessResp() {
-        return mMobileMoneyResponse;
+    public MaishapayResponse getMaishapayServerSuccessResponse() {
+        return this.mMaishapayResponse;
     }
 
-    public void setMobileMoneyServerSuccessResp(MobileMoneyResponse mobileMoneyResponse) {
-        this.mMobileMoneyResponse = mobileMoneyResponse;
-    }
-
-    public SoldeResponse getSoldeServerSuccessResp() {
-        return mSoldeResponse;
-    }
-
-    public void setSoldeServerSuccessResp(SoldeResponse soldeResponse) {
-        this.mSoldeResponse = soldeResponse;
-    }
-
-    public SoldeEpargneResponse getSoldeEpargneServerSuccessResp() {
-        return mSoldeEpargneResponse;
-    }
-
-    public RetraitResponse getRetraitServerSuccessResp() {
-        return mRetraitResponse;
-    }
-
-    public ConfirmRetraitResponse getConfirmRetraitServerSuccessResp() {
-        return mConfirmRetraitResponse;
-    }
-
-    public void setSoldeEpargneServerSuccessResp(SoldeEpargneResponse soldeResponse) {
-        this.mSoldeEpargneResponse = soldeResponse;
-    }
-
-    public void setRetraitServerSuccessResp(RetraitResponse retraitServerSuccessResp) {
-        this.mRetraitResponse = retraitServerSuccessResp;
-    }
-
-    public void setConfirmRetraitServerSuccessResp(ConfirmRetraitResponse confirmRetraitServerSuccessResp) {
-        this.mConfirmRetraitResponse = confirmRetraitServerSuccessResp;
+    public void setMaishapayServerSuccessResponse(MaishapayResponse maishapayResponse) {
+        this.mMaishapayResponse = maishapayResponse;
     }
 }

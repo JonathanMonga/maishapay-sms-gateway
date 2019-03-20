@@ -17,6 +17,7 @@
 
 package com.maishapay.smssync.presentation.view.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +26,6 @@ import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -74,6 +74,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.subscriptions.CompositeSubscription;
 
+import static android.os.Build.VERSION.SDK_INT;
 import static com.maishapay.smssync.presentation.service.ServiceConstants.ACTIVE_SYNC;
 import static com.maishapay.smssync.presentation.service.ServiceConstants.SYNC_STATUS;
 
@@ -88,6 +89,7 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
     /**
      * List of items pending to to be deleted
      **/
+
     public List<PendingMessage> mPendingMessages;
 
     @BindView(R.id.messages_fab)
@@ -152,8 +154,7 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(broadcastReceiver,
-                new IntentFilter(ServiceConstants.AUTO_SYNC_ACTION));
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(ServiceConstants.AUTO_SYNC_ACTION));
         mListMessagePresenter.resume();
     }
 
@@ -377,6 +378,7 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
         });
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private void initRecyclerView() {
         mPendingMessages = new ArrayList<>();
         mBloatedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -397,20 +399,18 @@ public class MessageFragment extends BaseRecyclerViewFragment<MessageModel, Mess
                                     publishItem(position);
                             }
                         }).show());
-        if (Build.VERSION.SDK_INT >= HONEYCOMB) {
+        if (SDK_INT >= HONEYCOMB) {
             enableSwipeToPerformAction();
         }
     }
 
     public void requestQuery(final String query) {
         Handler handler = new Handler();
-        final Runnable filterDeployments = new Runnable() {
-            public void run() {
-                try {
-                    mRecyclerViewAdapter.getFilter().filter(query);
-                } catch (Exception e) {
-                    reloadMessages();
-                }
+        final Runnable filterDeployments = () -> {
+            try {
+                mRecyclerViewAdapter.getFilter().filter(query);
+            } catch (Exception e) {
+                reloadMessages();
             }
         };
 

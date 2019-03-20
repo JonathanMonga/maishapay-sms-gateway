@@ -16,6 +16,8 @@
 
 package com.maishapay.smssync.data.entity;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -25,10 +27,12 @@ public class SoldeEpargneResponse {
 
     @SerializedName("resultat")
     private int resultat;
+    @SerializedName("transaction_id")
+    private int transaction_id;
     @SerializedName("solde_compte_epargne")
     private Balance mBalance;
     @SerializedName("message")
-    private String message;
+    private String errorMessage;
 
     public int getResultat() {
         return resultat;
@@ -36,6 +40,14 @@ public class SoldeEpargneResponse {
 
     public void setResultat(int resultat) {
         this.resultat = resultat;
+    }
+
+    public int getTransaction_id() {
+        return transaction_id;
+    }
+
+    public void setTransaction_id(int transaction_id) {
+        this.transaction_id = transaction_id;
     }
 
     public Balance getBalance() {
@@ -46,11 +58,13 @@ public class SoldeEpargneResponse {
         mBalance = balance;
     }
 
-    public String getMessage() {
-        return message;
+    @SuppressLint("DefaultLocale")
+    public String getSuccessMessage() {
+        return String.format("Maishapay trans ID : %d.\nSolde epargne CDF : %s FC.\nSolde epargne USD : %s $", getTransaction_id(), getBalance().getFrancCongolais(), getBalance().getDollard());
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    @SuppressLint("DefaultLocale")
+    public String getErrorMessage() {
+        return String.format("Maishapay trans ID : %d.\n%s", getTransaction_id(), errorMessage);
     }
 }
